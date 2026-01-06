@@ -1,6 +1,6 @@
 ---
 title: "Lab 1 Homework"
-author: "Your Name Here"
+author: "Darius Arasteh"
 date: "`r Sys.Date()`"
 output:
   html_document: 
@@ -12,7 +12,11 @@ Answer the following questions and/or complete the exercises in RMarkdown. Pleas
 
 **1. Please tell us why you are taking BIS 15L.**
 
+I am currently taking BIS15L as I want to learn R and it is required for my major. 
+
 **2. Do you have any coding experience? If yes, please tell us what languages you have coded in and your level of experience.**
+
+I've coded in python and javascript but wouldnt consider myself good at coding in either of those languages.
 
 **3. Navigate to the `datascibiol` repository on GitHub. Notice that near the bottom there is a description of the repository. You want something like this on your repository! It is built by making edits to the `README.md` file using RMarkdown. Edit your repository's `README.md` file so that you have an informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.**  
 
