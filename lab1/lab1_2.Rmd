@@ -1,0 +1,65 @@
+---
+title: "Lab 1.2"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+---
+
+## Learning Goals  
+*At the end of this exercise, you will be able to:*    
+1. Create a new repository on GitHub and link it to GitHub Desktop.    
+2. Improve the aesthetics and information about your repository.  
+3. Use GitHub Desktop to manage your repository.  
+4. Commit, push and pull files on GitHub.  
+
+## GitHub  
+[GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work and manage workflows in BIS 15L. We have a main repository for our class [datascibiol](https://github.com/jmledford3115/datascibiol). You should **Star** this repository for future reference.  
+
+## Your GitHub account  
+Since we will use GitHub for assignments and projects, you need to have a personal BIS 15L repository. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/setup.html) then you should be ready to make a repository using the instructions below. Please [Email](mailto:bymoore@ucdavis.edu) your GitHub user name to Bry.  
+
+## Make Your Own Repository  
+1. Go to [github.com](www.github.com) and login.  
+2. Create a new repository.  
+3. Under repository name, use the title `BIS15W2026_your first initial and lastname`. Mine looks like this: BIS15W2026_jledford  
+4. Default settings are fine, but do click "Initialize this repository with a README".    
+5. Once the repository is made, click on settings in the top right.  
+6. On the left toolbar click "Collaborators".  
+7. Add "jmledford3115" and "bryshalm" as collaborators.  
+8. Go to `Settings` and scroll down to `Danger` Zone.  
+9. Change visibility to private.  
+
+## GitHub Desktop  
+The easiest way to manage your GitHub repository is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.  
+
+## Clone Your Repository  
+In GitHub desktop, you will see your personal repository as an option under `clone repository`. Clone your repository to the desktop. Once you have done this any changes you make to files will be recorded and easily uploaded. Do not move this folder from your desktop.  
+
+## Copy the Class Repository
+In order to keep track of the class files, the last thing you need to do is make a copy of the class repository. I will make regular changes to the class repository including the addition of files and data that you will need. Do a search for `datascibiol` and download a copy to the desktop. You do this by navigating to the repository then going to the small green code button at top right. Click on the code button then go to Download ZIP.  
+
+Copy the `lab1` folder from the class repository and paste it into your personal repository. By doing this, you have created your own copies of lab materials for lab 1.  
+
+## Using GitHub  
+You will use your repository to store all of your notes and work. There are three terms that we need to define:  
+1. `Commit` takes a snapshot of your current progress.    
+2. `Pull` this is the same as download.     
+3. `Push` this is the same as upload.    
+
+If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by clicking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
+
+## RMarkdown
+The file format we use in class is called a markdown file. RMarkdown files have the extension `.Rmd` and can be created in RStudio by going to `File > New File > RMarkdown`. RMarkdown files allow you to combine text, code, and output in a single document.  
+
+## Knitting
+RMarkdown files need to be `knit` in order to produce a final document. This is done by clicking the `Knit` button at the top of the RStudio window. Knitting produces a final document in HTML format. You will turn in all homework assignments as knitted HTML files. If your code does not work, then the file will not knit.    
+
+## Practice  
+Since you will use your GitHub repository extensively in class, we need to practice.  
+1. Navigate to your repository and find the file `dummy_push` in the `lab 1` folder.   
+2. Open `dummy_push`.  
+3. Add your name under `author` at the top of the page.    
+4. Save this file.  
+5. `Knit` the file.    
+6. Use GitHub Desktop to first `Commit to master` and then `Push origin` to your GitHub repository.    

@@ -1,0 +1,80 @@
+---
+title: "BIS 015L Syllabus"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+---    
+```{r echo=FALSE, fig.align="center", out.width="40%"}
+knitr::include_graphics("images/learn_to_code.png")
+```
+
+> **Want to Make it as a Biologist? Better Learn to Code**  
+> "In biology, big data is the thing. Every day, biologists go into the lab to coax data out of living matter—more and more data, with the advent of biological tools like Crispr/Cas9..."We cannot manually look through 15,000 data points anymore," Udeshi says. To analyze it all, biologists need to write programs specifically tailored for their experiments."  
+> [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
+
+## Course Summary  
+In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice skills including data management, transformation, analysis, and visualization. We will also learn ethical usage of AI. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where we build on previously learned skills culminating in a small, group-based project. 
+
+This class is designed for students with *no background in computer programming, R, or statistics*. Our assumption is that you know how to turn a computer on and use a mouse- that's it!  
+
+## Equipment  
+In order to complete the homework and exams, you need to be able to run R and RStudio. Mac and PC computers both work, but *not* Chromebooks.  
+
+## UC Davis’ Principles of Community  
+We expect all interactions in this class to be guided by the [UCD Principles of Community](https://diversity.ucdavis.edu/principles-community). This stresses commitment to a climate of equity, inclusiveness and justice that is demonstrated by respecting and celebrating one another. The richness of our learning community and our ability to address pressing societal challenges require all of our unique contributions and perspectives. In this class, we will value open expression of our individualism, within the bounds of courtesy and respect to others. We will confront and reject all manifestations of discrimination, including based on age, citizenship status, disability, ethnicity, gender, gender expression, nationality, race, sexual orientation, socio-economic class, status inside or outside the university, veteran status, religious/non-religious, spiritual or political beliefs, or any other differences among people which have been excuses for misunderstanding, dissension or hatred.  
+
+## Student Disability Center
+UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](https://sdc.ucdavis.edu/) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
+
+I make every effort to ensure all content in this course is Accessible and meets WCAG 2.1 guidelines. If you find any content in this course to be inaccessible, please notify me as quickly as possible.  
+
+## Learning Goals  
+*At the end of this course, you will be able to:*  
+1. Setup and maintain an informative and organized repository on GitHub for data science projects.  
+2. Use R and RStudio to perform basic data science tasks including data import, cleaning, transformation, analysis, and visualization.  
+3. Build reproducible data science workflows using R scripts and R Markdown documents.  
+4. Understand and apply ethical practices when using AI tools in data science.  
+5. Communicate results using data visualizations and written summaries.  
+6. Use Shiny to build an interactive application.  
+
+## Course Structure  
+Our class has collaborative work as its foundation. Working as a community is what sets our class apart. We encourage you to work together throughout the class.    
+
+Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we work together to solve problems. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
+
+## Attendance
+As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. No grade points are awarded for attendance.  
+
+## Grading  
+The class is graded out of 350 points on a straight scale. There are no curves applied. Final grades are assigned strictly using standard UCD cutoffs in Canvas. No adjustments (grade bumps) will be applied.  
+
+1. **Weekly homework assignments (150 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. Homework is graded based on completion _and_ accuracy.  
+
+2. **Midterms (100 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you may use the labs and your homework) but no internet searches or AI are allowed. Each midterm is worth 50 points.  
+
+3. **Class project (100 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
+
+## Academic Integrity
+If you are found to have used unauthorized resources on homework, including old copies of homework posted on GitHub, then you will be referred to SJA. You will then receive a zero on the homework portion of the course. The same policy applies to exams. If you have questions about what is allowed, please ask.  
+
+## AI Use Policy
+We will use AI tools in class and I encourage you to explore them on your own. However, it is critical that you understand that AI tools are not always accurate and should be used with caution. For homework assignments, you may use AI tools to help you understand concepts or generate ideas, but you must write your own code and ensure that it works correctly. Copying and pasting code generated by AI tools without understanding it is not allowed and will be considered a violation of academic integrity. For exams, the use of AI tools is prohibited. If you have any questions about the appropriate use of AI tools, please ask.  
+
+## Absences
+If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
+
+## Suggested Reading  
+[R for Data Science, 2nd edition](https://r4ds.hadley.nz/). This book is available for free online and is an excellent resource for learning R and data science.  
+
+## Office Hours  
+Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class Canvas site as a first step so we all benefit.  
+
+## Do's and Dont's  
+Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
+
++ Please *do* ask questions, get help from class partners, and complete assignments on-time.  
++ Please *don't* miss class or get behind on the homework.  
++ Please *don't* become overly reliant on AI; question *all* output from AI sources.
+
+We are very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let us know and we will do our best to incorporate them into class examples. Most of all, have fun learning R and if you are not then let us know!  
