@@ -399,14 +399,20 @@ used below.</strong></p>
 <p><strong>3. Assign a new object <code>pi</code> to a value of 3.14159.
 You should now see the object <code>pi</code> in the environment window
 in the top right.</strong></p>
+<pre class="r"><code>pi &lt;- 3.14195</code></pre>
 <p><strong>4. Write a code chunk that divides <code>pi</code> by 2. Use
 the help command <code>?</code> to learn how to use the
 <code>round</code> function to limit your result to 4 significant
 digits.</strong></p>
+<pre class="r"><code>signif(pi/2,4)</code></pre>
+<pre><code>## [1] 1.571</code></pre>
 <p><strong>5. Calculate the mean for: 2, 8, 4, 6, NA, 4, 9, 9, 10, NA.
 Please start by making a new vector <code>x</code> that holds these
 values then use <code>mean</code> to perform the
 calculation.</strong></p>
+<pre class="r"><code>x_vector &lt;- (c(2, 8, 4, 6, NA, 4, 9, 9, 10, NA))</code></pre>
+<pre class="r"><code>mean(x_vector, na.rm=(TRUE))</code></pre>
+<pre><code>## [1] 6.5</code></pre>
 </div>
 <div id="knit-and-upload" class="section level2">
 <h2>Knit and Upload</h2>
