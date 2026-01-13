@@ -1,6 +1,6 @@
 ---
 title: "Homework 3"
-author: "Your Name Here"
+author: "Darius Arasteh"
 date: "`r Sys.Date()`"
 output:
   html_document: 
@@ -19,51 +19,54 @@ In order to answer the questions below, you will need to do a little online rese
 
 **1. Make three new vectors that show the name, height in feet, and height in meters of the five tallest mountains in the world.**
 ```{r}
-
+name <- c("everest",'k2','kangchenjunga','lhotse','makalu')
+heightft <- c(29032,28251,28169,27940,27838)
+heightme <- c(8849,8611,8586,8516,8485)
 ```
 
 **2. Combine these vectors into a data frame called `mountains`.**
 ```{r}
-
+mountains <-  tibble(name,heightft,heightme)
 ```
 
 **3. What is the mean height of the mountains in feet?**
 ```{r}
-
+mean(mountains$heightft)
 ```
 
 **4. When were each of these mountains first climbed (i.e. in what year)? Make a new vector `first_climbed` and add it to the `mountains` data frame.**
 ```{r}
-
+first_climbed <- c(1953,1954,1955,1956,1955)
 ```
 
 ```{r}
-
+mountains <- tibble(name,heightft,heightme,first_climbed)
 ```
 
 **5. How many times have each of these mountains been climbed? Make a new vector `summits` and add it to the `mountains` data frame.**
 ```{r}
-
+mountains$summits <- c(12000,800,280,933,500)
 ```
 
 **6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
 ```{r}
+mountains$fatalities <- c(347,96,53,22,48)
 
 ```
 
 **7. What is the fatality rate (i.e., fatalities divided by summits) for each mountain? Create a new vector `fatality_rate` and add it to the `mountains` data frame.**
 ```{r}
-
+mountains$fatality_rate <- c(mountains$fatalities/mountains$summits)
 ```
 
 **8. Write your data frame to a .csv file called `mountains_data`.**
 ```{r}
-
+write.csv(mountains, "mountains_data.csv", row.names=FALSE)
 ```
 
 **9. Clear your environment panel by clicking on the broom icon. Then read in your `mountains_data.csv` file to a new object called `mountains`.**
 ```{r}
-
+mountains <- read.csv("mountains_data.csv")
 ```
 
 ```{r}
@@ -72,7 +75,7 @@ In order to answer the questions below, you will need to do a little online rese
 
 **10. Use a summary function of your choice to show the structure of your `mountains` data frame.**
 ```{r}
-
+summary(mountains)
 ```
 
 ## Knit and Upload

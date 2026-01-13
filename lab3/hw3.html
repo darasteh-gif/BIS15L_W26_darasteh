@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Your Name Here" />
+<meta name="author" content="Darius Arasteh" />
 
-<meta name="date" content="2026-01-12" />
+<meta name="date" content="2026-01-13" />
 
 <title>Homework 3</title>
 
@@ -375,8 +375,8 @@ display: none;
 
 
 <h1 class="title toc-ignore">Homework 3</h1>
-<h4 class="author">Your Name Here</h4>
-<h4 class="date">2026-01-12</h4>
+<h4 class="author">Darius Arasteh</h4>
+<h4 class="date">2026-01-13</h4>
 
 </div>
 
@@ -396,8 +396,8 @@ code chunks to run.</p>
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.6
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ## ✔ ggplot2   4.0.1     ✔ tibble    3.3.0
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-## ✔ purrr     1.2.1     
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.2.0     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -407,30 +407,58 @@ online research.</p>
 <p><strong>1. Make three new vectors that show the name, height in feet,
 and height in meters of the five tallest mountains in the
 world.</strong></p>
+<pre class="r"><code>name &lt;- c(&quot;everest&quot;,&#39;k2&#39;,&#39;kangchenjunga&#39;,&#39;lhotse&#39;,&#39;makalu&#39;)
+heightft &lt;- c(29032,28251,28169,27940,27838)
+heightme &lt;- c(8849,8611,8586,8516,8485)</code></pre>
 <p><strong>2. Combine these vectors into a data frame called
 <code>mountains</code>.</strong></p>
+<pre class="r"><code>mountains &lt;-  tibble(name,heightft,heightme)</code></pre>
 <p><strong>3. What is the mean height of the mountains in
 feet?</strong></p>
+<pre class="r"><code>mean(mountains$heightft)</code></pre>
+<pre><code>## [1] 28246</code></pre>
 <p><strong>4. When were each of these mountains first climbed (i.e. in
 what year)? Make a new vector <code>first_climbed</code> and add it to
 the <code>mountains</code> data frame.</strong></p>
+<pre class="r"><code>first_climbed &lt;- c(1953,1954,1955,1956,1955)</code></pre>
+<pre class="r"><code>mountains &lt;- tibble(name,heightft,heightme,first_climbed)</code></pre>
 <p><strong>5. How many times have each of these mountains been climbed?
 Make a new vector <code>summits</code> and add it to the
 <code>mountains</code> data frame.</strong></p>
+<pre class="r"><code>mountains$summits &lt;- c(12000,800,280,933,500)</code></pre>
 <p><strong>6. Which mountain has the highest number of fatalities? Make
 a new vector <code>fatalities</code> and add it to the
 <code>mountains</code> data frame.</strong></p>
+<pre class="r"><code>mountains$fatalities &lt;- c(347,96,53,22,48)</code></pre>
 <p><strong>7. What is the fatality rate (i.e., fatalities divided by
 summits) for each mountain? Create a new vector
 <code>fatality_rate</code> and add it to the <code>mountains</code> data
 frame.</strong></p>
+<pre class="r"><code>mountains$fatality_rate &lt;- c(mountains$fatalities/mountains$summits)</code></pre>
 <p><strong>8. Write your data frame to a .csv file called
 <code>mountains_data</code>.</strong></p>
+<pre class="r"><code>write.csv(mountains, &quot;mountains_data.csv&quot;, row.names=FALSE)</code></pre>
 <p><strong>9. Clear your environment panel by clicking on the broom
 icon. Then read in your <code>mountains_data.csv</code> file to a new
 object called <code>mountains</code>.</strong></p>
+<pre class="r"><code>mountains &lt;- read.csv(&quot;mountains_data.csv&quot;)</code></pre>
 <p><strong>10. Use a summary function of your choice to show the
 structure of your <code>mountains</code> data frame.</strong></p>
+<pre class="r"><code>summary(mountains)</code></pre>
+<pre><code>##      name              heightft        heightme    first_climbed 
+##  Length:5           Min.   :27838   Min.   :8485   Min.   :1953  
+##  Class :character   1st Qu.:27940   1st Qu.:8516   1st Qu.:1954  
+##  Mode  :character   Median :28169   Median :8586   Median :1955  
+##                     Mean   :28246   Mean   :8609   Mean   :1955  
+##                     3rd Qu.:28251   3rd Qu.:8611   3rd Qu.:1955  
+##                     Max.   :29032   Max.   :8849   Max.   :1956  
+##     summits        fatalities    fatality_rate    
+##  Min.   :  280   Min.   : 22.0   Min.   :0.02358  
+##  1st Qu.:  500   1st Qu.: 48.0   1st Qu.:0.02892  
+##  Median :  800   Median : 53.0   Median :0.09600  
+##  Mean   : 2903   Mean   :113.2   Mean   :0.09156  
+##  3rd Qu.:  933   3rd Qu.: 96.0   3rd Qu.:0.12000  
+##  Max.   :12000   Max.   :347.0   Max.   :0.18929</code></pre>
 </div>
 <div id="knit-and-upload" class="section level2">
 <h2>Knit and Upload</h2>
