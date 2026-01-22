@@ -102,15 +102,12 @@ ggplot(data=homerange,
 ```
 
 ###**9. Use filter to extract the data for only birds and mammals. Then make a plot that compares the homerange sizes of these two groups. Be sure to include appropriate labels and a title.**
-####
+```{r}
 homerange%>%
-##  classdata <- c(filter(class=="mammalia"| class=="aves"))%>%
-##  ggplot(data=classdata, 
-##       mapping=aes(x=class))+
-##    geom_bar()
-      
-  
-  
+select(taxon, log10.hra)%>%
+filter(taxon==c("birds","mammals"))%>%
+  ggplot(mapping=aes(x=taxon,y=log10.hra))+
+   geom_boxplot()+
   
 ```
 
