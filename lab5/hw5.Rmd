@@ -101,13 +101,13 @@ ggplot(data=homerange,
   labs(title="Mass vs. Homerange Size", x="Log10 Homerange Size", y="Log10 Mass(g)")
 ```
 
-**9. Use filter to extract the data for only birds and mammals. Then make a plot that compares the homerange sizes of these two groups. Be sure to include appropriate labels and a title.**
-```{r}
+###**9. Use filter to extract the data for only birds and mammals. Then make a plot that compares the homerange sizes of these two groups. Be sure to include appropriate labels and a title.**
+####
 homerange%>%
-  classdata <- c(filter(class=="mammalia"| class=="aves"))%>%
-  ggplot(data=classdata, 
-       mapping=aes(x=class))+
-    geom_bar()
+##  classdata <- c(filter(class=="mammalia"| class=="aves"))%>%
+##  ggplot(data=classdata, 
+##       mapping=aes(x=class))+
+##    geom_bar()
       
   
   
