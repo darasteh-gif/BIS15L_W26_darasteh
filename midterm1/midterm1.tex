@@ -1,0 +1,664 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Midterm 1 W26},
+  pdfauthor={Darius Arasteh},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Midterm 1 W26}
+\author{Darius Arasteh}
+\date{2026-01-29}
+
+\begin{document}
+\maketitle
+
+\subsection{Instructions}\label{instructions}
+
+Answer the following questions and complete the exercises in RMarkdown.
+Please embed all of your code and push your final work to your
+repository. Your code must be organized, clean, and run free from
+errors. Remember, you must remove the \texttt{\#} for any included code
+chunks to run. Be sure to add your name to the author header above.
+
+Your code must knit in order to be considered. If you are stuck and
+cannot answer a question, then comment out your code and knit the
+document. You may use your notes, labs, and homework to help you
+complete this exam. Do not use any other resources- including AI
+assistance or other students' work.
+
+Don't forget to answer any questions that are asked in the prompt! Each
+question must be coded; it cannot be answered by a sort in a spreadsheet
+or a written response only.
+
+For all plots you create, a title and clearly labeled axes must be
+provided. We also expect pipes \texttt{\%\textgreater{}\%} to be used
+wherever possible.
+
+Be sure to push your completed midterm to your repository and upload the
+document to Gradescope. This exam is worth 50 points.
+
+Please load the following libraries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Part 1: Repository}\label{part-1-repository}
+
+\textbf{Question 1. (3 points) Before you start analyzing data, please
+put a link to your GitHub repository below. Your repository should have
+a clear README and be well-organized. Add \texttt{jmledford3115} and
+\texttt{bryshalm} as collaborators to your repository if you haven't
+already done so.}
+
+Link to repository:\\
+\url{https://github.com/darasteh-gif/BIS15L_W26_darasteh}\strut \\
+\strut \\
+\strut \\
+\strut \\
+
+\subsection{Part 2: Data and Analysis}\label{part-2-data-and-analysis}
+
+In the midterm 1 folder there is a second folder called \texttt{data}.
+Inside the \texttt{data} folder, there is a .csv file called
+\texttt{anolis\_dat.csv}. These data came from
+\href{https://academic.oup.com/evolut/article/64/9/2731/6854302?login=true}{D.
+Luke Mahler, Liam J. Revell, Richard E. Glor, Jonathan B. Losos,
+ECOLOGICAL OPPORTUNITY AND THE RATE OF MORPHOLOGICAL EVOLUTION IN THE
+DIVERSIFICATION OF GREATER ANTILLEAN ANOLES, Evolution, Volume 64, Issue
+9, 1 September 2010, Pages 2731--2745}. The original research article is
+included in the data folder.
+
+\emph{Anolis} is a genus of lizards commonly known as anoles. Anoles are
+found throughout the Americas, but are especially diverse in the
+Caribbean. The data include morphological measurements for \emph{Anolis}
+lizards from the islands of the Greater Antilles. These data can be used
+to study patterns of morphological evolution and adaptation in
+\emph{Anolis} lizards.
+
+The variables include:\\
+- \texttt{species}: Species name of the anole lizard.\\
+- \texttt{habitat}: Habitat type where the lizard was found.\\
+- \texttt{hindlimb\_length\_mm}: Length of the lizard's hindlimbs (in
+millimeters).\\
+- \texttt{tail\_length\_mm}: Length of the lizard's tail (in
+millimeters).\\
+- \texttt{body\_length\_mm}: Length of the lizard's body (in
+millimeters).\\
+- \texttt{toepad\_lamellae\_count}: Count of lamellae on the lizard's
+toepads.\\
+- \texttt{island}: Island where the lizard was found.
+
+\textbf{Question 2. (2 points) Load the data and store it as an object
+called \texttt{anolis}.}\\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/anolis\_dat.csv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{clean\_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 3. (2 points) Use a summary function of your choice to
+get an idea of the structure of the data.}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(anolis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    species            habitat          hindlimb_length_mm tail_length_mm  
+##  Length:52          Length:52          Min.   :20.00      Min.   : 39.79  
+##  Class :character   Class :character   1st Qu.:31.70      1st Qu.: 82.19  
+##  Mode  :character   Mode  :character   Median :40.01      Median :101.86  
+##                                        Mean   :40.51      Mean   :102.81  
+##                                        3rd Qu.:49.27      3rd Qu.:121.92  
+##                                        Max.   :65.48      Max.   :154.45  
+##  body_length_mm  toepad_lamellae_count    island         
+##  Min.   :29.01   Min.   :23.00         Length:52         
+##  1st Qu.:40.07   1st Qu.:28.00         Class :character  
+##  Median :47.05   Median :29.00         Mode  :character  
+##  Mean   :47.65   Mean   :30.54                           
+##  3rd Qu.:54.53   3rd Qu.:33.00                           
+##  Max.   :72.32   Max.   :44.00
+\end{verbatim}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 4. (2 points) Clean the variable names so they are all
+lowercase and without special characters or spaces. Be sure to use the
+cleaned data for all subsequent analyses.}\\
+\textbf{I Cleaned the names when I loaded the data}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 5. (4 points) Convert the \texttt{habitat} and
+\texttt{island} variables to factors.}\\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{habitat=}\FunctionTok{as.factor}\NormalTok{(habitat)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{habitat=}\FunctionTok{as.factor}\NormalTok{(habitat)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               species      habitat hindlimb_length_mm tail_length_mm
+## 1             A. ahli Trunk-ground              50.46          81.99
+## 2          A. alayoni         Twig              25.50          54.75
+## 3          A. alfaroi   Grass-bush              26.17          79.00
+## 4         A. aliniger  Trunk-crown              36.80          84.88
+## 5         A. allisoni  Trunk-crown              50.39         154.45
+## 6          A. allogus Trunk-ground              49.37          91.01
+## 7          A. alumina   Grass-bush              29.97         106.40
+## 8        A. alutaceus   Grass-bush              27.39          94.62
+## 9      A. angusticeps         Twig              24.37          65.10
+## 10         A. armouri Trunk-ground              51.81         101.37
+## 11   A. bahorucoensis   Grass-bush              38.71         115.82
+## 12         A. bremeri Trunk-ground              47.44         114.01
+## 13        A. breslini Trunk-ground              49.84         122.85
+## 14    A. chlorocyanus  Trunk-crown              48.55         142.12
+## 15       A. clivicola   Grass-bush              34.79          98.75
+## 16        A. confusus Trunk-ground              41.63          78.31
+## 17           A. cooki Trunk-ground              48.50         134.57
+## 18    A. cupeyalensis   Grass-bush              22.88          93.90
+## 19    A. cyanopleurus   Grass-bush              31.38         111.68
+## 20 A. dolichocephalus   Grass-bush              39.49         131.27
+## 21         A. grahami  Trunk-crown              48.71         119.78
+## 22           A. guafe Trunk-ground              39.09          69.45
+## 23         A. guazuma         Twig              20.46          39.79
+## 24       A. gundlachi Trunk-ground              58.32         136.13
+## 25       A. haetianus Trunk-ground              65.48         154.41
+## 26      A. hendersoni   Grass-bush              38.53         128.81
+## 27      A. homolechis Trunk-ground              44.97          90.92
+## 28           A. imias Trunk-ground              51.67         104.67
+## 29    A. inexpectatus   Grass-bush              26.80         101.12
+## 30       A. insolitus         Twig              26.13          50.77
+## 31           A. jubar Trunk-ground              41.08          82.15
+## 32           A. krugi   Grass-bush              40.53         130.76
+## 33      A. lineatopus Trunk-ground              52.71         119.97
+## 34   A. longitibialis Trunk-ground              61.92         140.36
+## 35      A. macilentus   Grass-bush              31.80          97.35
+## 36        A. marcanoi Trunk-ground              49.24         123.95
+## 37         A. mestrei Trunk-ground              44.93          92.11
+## 38        A. opalinus  Trunk-crown              35.67          82.15
+## 39      A. ophiolepis   Grass-bush              26.88          81.13
+## 40        A. placidus         Twig              20.00          47.96
+## 41       A. poncensis   Grass-bush              33.39         118.20
+## 42        A. porcatus  Trunk-crown              44.58         140.26
+## 43 A. quadriocellifer Trunk-ground              39.05          82.20
+## 44     A. rubribarbus Trunk-ground              50.43          93.94
+## 45          A. sagrei Trunk-ground              45.47         111.90
+## 46    A. semilineatus   Grass-bush              33.99         121.61
+## 47         A. shrevei Trunk-ground              43.61         102.53
+## 48      A. singularis  Trunk-crown              38.42         102.34
+## 49         A. strahmi Trunk-ground              65.24         138.87
+## 50       A. stratulus  Trunk-crown              34.38          77.93
+## 51       A. vanidicus   Grass-bush              26.45          90.60
+## 52       A. whitemani Trunk-ground              51.06         115.26
+##    body_length_mm toepad_lamellae_count      island
+## 1           51.67                    27        Cuba
+## 2           41.32                    31        Cuba
+## 3           30.95                    24        Cuba
+## 4           51.53                    36  Hispaniola
+## 5           72.32                    41        Cuba
+## 6           51.72                    28        Cuba
+## 7           32.94                    29  Hispaniola
+## 8           31.84                    28        Cuba
+## 9           40.22                    28        Cuba
+## 10          56.11                    31  Hispaniola
+## 11          41.81                    32  Hispaniola
+## 12          55.65                    32        Cuba
+## 13          52.29                    29  Hispaniola
+## 14          65.44                    42  Hispaniola
+## 15          39.03                    26        Cuba
+## 16          46.72                    32        Cuba
+## 17          54.45                    33 Puerto Rico
+## 18          29.01                    24        Cuba
+## 19          34.32                    26        Cuba
+## 20          45.34                    36  Hispaniola
+## 21          57.97                    38     Jamacia
+## 22          43.95                    29        Cuba
+## 23          39.24                    28        Cuba
+## 24          59.97                    28 Puerto Rico
+## 25          68.19                    33  Hispaniola
+## 26          43.19                    34  Hispaniola
+## 27          51.34                    32        Cuba
+## 28          54.89                    28        Cuba
+## 29          31.28                    27        Cuba
+## 30          40.70                    25  Hispaniola
+## 31          47.38                    29        Cuba
+## 32          44.35                    33 Puerto Rico
+## 33          56.50                    29     Jamacia
+## 34          63.29                    28  Hispaniola
+## 35          37.39                    28        Cuba
+## 36          53.79                    33  Hispaniola
+## 37          49.05                    30        Cuba
+## 38          42.27                    35     Jamacia
+## 39          34.59                    24        Cuba
+## 40          39.63                    26  Hispaniola
+## 41          41.52                    29 Puerto Rico
+## 42          64.37                    44        Cuba
+## 43          45.03                    28        Cuba
+## 44          53.74                    29        Cuba
+## 45          53.14                    33        Cuba
+## 46          36.68                    30  Hispaniola
+## 47          48.85                    28  Hispaniola
+## 48          52.65                    38  Hispaniola
+## 49          65.36                    31  Hispaniola
+## 50          43.62                    34 Puerto Rico
+## 51          34.19                    23        Cuba
+## 52          54.77                    29  Hispaniola
+\end{verbatim}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 6. (2 points) Anole species were sampled from multiple
+islands. Which islands are represented in the data? Display the island
+names.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{(island)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        island
+## 1        Cuba
+## 2  Hispaniola
+## 3 Puerto Rico
+## 4     Jamacia
+\end{verbatim}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 7. (4 points) Is sampling equal across islands? Create
+a plot to visualize the number of anole species sampled from each
+island. Be sure to label your axes and add a title.}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{island))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{island))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Species per Island"}\NormalTok{, }\AttributeTok{x=}\StringTok{"Island"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Number of Species"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{midterm1_files/figure-latex/unnamed-chunk-7-1.pdf}}
+\#Sampling is not equal across islands, Cuba and Hispaniola were sampled
+much more than Jamaica or Puerto Rico\\
+\strut \\
+\strut \\
+
+\textbf{Question 8. (2 points) Which habitat types are represented in
+the data? Display the names of the habitat types.}\\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{(habitat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        habitat
+## 1 Trunk-ground
+## 2         Twig
+## 3   Grass-bush
+## 4  Trunk-crown
+\end{verbatim}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 9. (4 points) Is sampling equal across habitat types?
+Create a plot to visualize the number of anole species sampled from each
+habitat type. Be sure to label your axes and add a title.}\\
+\strut \\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{habitat))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{habitat))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Species per Habitat"}\NormalTok{, }\AttributeTok{x=}\StringTok{"Habitat"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Number of Species"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{midterm1_files/figure-latex/unnamed-chunk-9-1.pdf}}
+\#Trunk-ground habitat was sampled much more than the others\\
+\strut \\
+
+\textbf{Question 10. (4 points) The morphology of anoles varies based on
+their habitat. How does the range of hindlimb length compare among
+different habitats? Create a plot to visualize the distribution of
+hindlimb lengths across habitat types. Be sure to label your axes and
+add a title.}\\
+\strut \\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{habitat,}\AttributeTok{y=}\NormalTok{hindlimb\_length\_mm))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{habitat))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Hindlimb Length vs. Habitat"}\NormalTok{, }\AttributeTok{x=}\StringTok{"Habitat"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Hind Limb Length"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{midterm1_files/figure-latex/unnamed-chunk-10-1.pdf}}
+\#Twig anoles have the shortes hind limb length\\
+\strut \\
+
+\textbf{Question 11. (4 points) The plot above is compelling, but don't
+we expect larger lizards to have longer limbs? What about tail length?
+Shouldn't longer lizards have longer tails? To correct for this, make
+two new columns: 1. \texttt{ratio\_of\_hindlimb\_to\_body}, and 2.
+\texttt{ratio\_of\_tail\_to\_body}. Don't forget to add these columns to
+the anolis data frame.}\\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis}\SpecialCharTok{$}\NormalTok{ratio\_of\_hindlimb\_to\_body }\OtherTok{\textless{}{-}}\NormalTok{ (anolis}\SpecialCharTok{$}\NormalTok{hindlimb\_length\_mm}\SpecialCharTok{/}\NormalTok{anolis}\SpecialCharTok{$}\NormalTok{body\_length\_mm)}
+\NormalTok{anolis}\SpecialCharTok{$}\NormalTok{ratio\_of\_tail\_to\_body }\OtherTok{\textless{}{-}}\NormalTok{ (anolis}\SpecialCharTok{$}\NormalTok{tail\_length\_mm}\SpecialCharTok{/}\NormalTok{anolis}\SpecialCharTok{$}\NormalTok{body\_length\_mm)}
+\end{Highlighting}
+\end{Shaded}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Question 12. (4 points) Create a new plot that examines the
+distribution of \texttt{ratio\_of\_hindlimb\_to\_body} across habitat
+types. How does this plot differ from the one you made in Problem 10? Be
+sure to label your axes and add a title.}\\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{habitat,}\AttributeTok{y=}\NormalTok{ratio\_of\_hindlimb\_to\_body))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{habitat))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Hindlimb to Bodylength Ratio vs. Habitat"}\NormalTok{, }\AttributeTok{x=}\StringTok{"Habitat"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Hind Limb to Body Length (mm)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{midterm1_files/figure-latex/unnamed-chunk-12-1.pdf}}
+\#This plot differs in that it shows the proportional hindlimb length
+opposed to raw hindlimb length\\
+\strut \\
+\strut \\
+
+\textbf{Problem 13. (4 points) A longer tail provides better balance and
+agility. Create a plot that examines the relationship between body
+length and tail length. Color the points by habitat type and add a line
+of best fit. What does this plot suggest about the relationship between
+body length and tail length? What do you notice about lizards in the
+\texttt{Grass-bush} habitat? Be sure to label your axes and add a
+title.}
+
+\#The graph suggests that longer bodys are correlated to longer tails,
+and also depicts how tail length is longer in proportion to body length
+among grass-bush lizards\\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{body\_length\_mm,}\AttributeTok{y=}\NormalTok{tail\_length\_mm))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{habitat))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm, }\AttributeTok{se=}\NormalTok{T)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Body vs. Tail Length"}\NormalTok{, }\AttributeTok{x=}\StringTok{"Body Length (mm)"}\NormalTok{, }\AttributeTok{y=}\StringTok{"Tail Length (mm)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{midterm1_files/figure-latex/unnamed-chunk-13-1.pdf}}
+
+\hfill\break
+\hfill\break
+
+\textbf{Problem 14. (4 points) Toepad lamellae are transverse,
+plate-like structures found on the ventral surface of the digits. They
+are a key adaptation that allows anoles to cling to and move efficiently
+on smooth and vertical surfaces. What is the mean number of toepad
+lamellae for each habitat type?}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis}\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(habitat,toepad\_lamellae\_count) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(habitat}\SpecialCharTok{==}\StringTok{"Trunk{-}ground"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\FunctionTok{mean}\NormalTok{(toepad\_lamellae\_count)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mean(toepad_lamellae_count)
+## 1                    29.95652
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis}\SpecialCharTok{\%\textgreater{}\%} 
+  
+  \FunctionTok{select}\NormalTok{(habitat,toepad\_lamellae\_count) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(habitat}\SpecialCharTok{==}\StringTok{"Twig"}\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\FunctionTok{mean}\NormalTok{(toepad\_lamellae\_count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mean(toepad_lamellae_count)
+## 1                        27.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis}\SpecialCharTok{\%\textgreater{}\%} 
+  
+  
+  \FunctionTok{select}\NormalTok{(habitat,toepad\_lamellae\_count) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(habitat}\SpecialCharTok{==}\StringTok{"Grass{-}bush"}\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\FunctionTok{mean}\NormalTok{(toepad\_lamellae\_count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mean(toepad_lamellae_count)
+## 1                     28.3125
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis}\SpecialCharTok{\%\textgreater{}\%} 
+  
+  \FunctionTok{select}\NormalTok{(habitat,toepad\_lamellae\_count) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(habitat}\SpecialCharTok{==}\StringTok{"Trunk{-}crown"}\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\FunctionTok{mean}\NormalTok{(toepad\_lamellae\_count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mean(toepad_lamellae_count)
+## 1                        38.5
+\end{verbatim}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\textbf{Problem 15. (5 points) The number of toepad lamellae is
+significantly different for trunk-crown species. But, is this consistent
+across all islands? Make a plot that shows the range in number of toepad
+lamellae by island for trunk-crown species only. Be sure to label your
+axes and add a title.}\\
+\strut \\
+\strut \\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anolis }\SpecialCharTok{\%\textgreater{}\%} 
+   \FunctionTok{filter}\NormalTok{(habitat}\SpecialCharTok{==}\StringTok{"Trunk{-}crown"}\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%} 
+   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{island,}\AttributeTok{y=}\NormalTok{toepad\_lamellae\_count))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{island))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Trunk{-}Crown Anole Toepad Lamellae \# by Island"}\NormalTok{, }\AttributeTok{x=}\StringTok{"Island"}\NormalTok{, }\AttributeTok{y=}\StringTok{"Toepad Lamellae Count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{midterm1_files/figure-latex/unnamed-chunk-15-1.pdf}}
+
+\hfill\break
+\hfill\break
+
+\subsection{Submit the Midterm}\label{submit-the-midterm}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Save your work and knit the .rmd file.\\
+\item
+  Open the .html file and ``print'' it to a .pdf file in Google Chrome
+  (not Safari).\\
+\item
+  Go to the class Canvas page and open Gradescope.\\
+\item
+  Submit your .pdf file to the midterm assignment- be sure to assign the
+  pages to the correct questions.\\
+\item
+  Commit and push your work to your repository.
+\end{enumerate}
+
+\end{document}
