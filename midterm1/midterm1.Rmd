@@ -26,10 +26,11 @@ library(janitor)
 
 ## Part 1: Repository
 
-**Question 1. (3 points) Before you start analyzing data, please put a link to your GitHub repository below. Your repository should have a clear README and be well-organized. Add `jmledford3115` and `bryshalm` as collaborators to your repository if you haven't already done so.**  
+  **Question 1. (3 points) Before you start analyzing data, please put a link to your GitHub repository below. Your repository should have a clear README and be well-organized. Add `jmledford3115` and `bryshalm` as collaborators to your repository if you haven't already done so.**  
 
 Link to repository:
 \
+https://github.com/darasteh-gif/BIS15L_W26_darasteh
 \
 \
 \
@@ -53,12 +54,20 @@ The variables include:
 **Question 2. (2 points) Load the data and store it as an object called `anolis`.**
 \
 \
+```{r}
+anolis <- read.csv("data/anolis_dat.csv") %>% clean_names()
+```
+
 \
 \
 \
 
 **Question 3. (2 points) Use a summary function of your choice to get an idea of the structure of the data.**
 \
+```{r}
+summary(anolis)
+```
+
 \
 \
 \
@@ -67,6 +76,10 @@ The variables include:
 **Question 4. (2 points) Clean the variable names so they are all lowercase and without special characters or spaces. Be sure to use the cleaned data for all subsequent analyses.**
 \
 \
+```{r}
+
+```
+
 \
 \
 \
@@ -74,12 +87,22 @@ The variables include:
 **Question 5. (4 points) Convert the `habitat` and `island` variables to factors.**
 \
 \
+```{r}
+anolis %>% 
+  mutate(habitat=as.factor(habitat)) %>% 
+  mutate(habitat=as.factor(habitat)) 
+```
+
 \
 \
 \
 
 **Question 6. (2 points) Anole species were sampled from multiple islands. Which islands are represented in the data? Display the island names.**
-\
+```{r}
+anolis %>% 
+  distinct(island)
+```
+
 \
 \
 \
@@ -87,7 +110,15 @@ The variables include:
 
 **Question 7. (4 points) Is sampling equal across islands? Create a plot to visualize the number of anole species sampled from each island. Be sure to label your axes and add a title.**
 \
-\
+```{r}
+anolis %>% 
+  ggplot(aes(x=island))+
+  geom_bar(aes(color=island))+
+  labs(title = "Species per Island", x="Island",y="Number of Species")
+  
+
+```
+#Sampling is not equal across islands, Cuba and Hispaniola were sampled much more than Jamaica or Puerto Rico
 \
 \
 \
@@ -95,6 +126,11 @@ The variables include:
 **Question 8. (2 points) Which habitat types are represented in the data? Display the names of the habitat types.**
 \
 \
+```{r}
+anolis %>% 
+  distinct(habitat)
+```
+
 \
 \
 \
@@ -103,6 +139,13 @@ The variables include:
 \
 \
 \
+```{r}
+anolis %>% 
+  ggplot(aes(x=habitat))+
+  geom_bar(aes(color=habitat))+
+  labs(title = "Species per Habitat", x="Habitat",y="Number of Species")
+```
+#Trunk-ground habitat was sampled much more than the others
 \
 \
 
@@ -110,12 +153,26 @@ The variables include:
 \
 \
 \
+```{r}
+anolis %>% 
+  ggplot(aes(x=habitat,y=hindlimb_length_mm))+
+  geom_boxplot(aes(color=habitat))+
+  labs(title = "Hindlimb Length vs. Habitat", x="Habitat",y="Hind Limb Length")
+```
+#Twig anoles have the shortes hind limb length
 \
 \
 
 **Question 11. (4 points) The plot above is compelling, but don't we expect larger lizards to have longer limbs? What about tail length? Shouldn't longer lizards have longer tails? To correct for this, make two new columns: 1. `ratio_of_hindlimb_to_body`, and 2. `ratio_of_tail_to_body`. Don't forget to add these columns to the anolis data frame.**
 \
 \
+```{r}
+
+anolis$ratio_of_hindlimb_to_body <- (anolis$hindlimb_length_mm/anolis$body_length_mm)
+anolis$ratio_of_tail_to_body <- (anolis$tail_length_mm/anolis$body_length_mm)
+  
+```
+
 \
 \
 \
@@ -123,19 +180,62 @@ The variables include:
 **Question 12. (4 points) Create a new plot that examines the distribution of `ratio_of_hindlimb_to_body` across habitat types. How does this plot differ from the one you made in Problem 10?  Be sure to label your axes and add a title.**
 \
 \
+```{r}
+anolis %>% 
+  ggplot(aes(x=habitat,y=ratio_of_hindlimb_to_body))+
+  geom_boxplot(aes(color=habitat))+
+  labs(title = "Hindlimb to Bodylength Ratio vs. Habitat", x="Habitat",y="Hind Limb to Body Length (mm)")
+```
+#This plot differs in that it shows the proportional hindlimb length opposed to raw hindlimb length
 \
 \
 \
 
 **Problem 13. (4 points) A longer tail provides better balance and agility. Create a plot that examines the relationship between body length and tail length. Color the points by habitat type and add a line of best fit. What does this plot suggest about the relationship between body length and tail length? What do you notice about lizards in the `Grass-bush` habitat? Be sure to label your axes and add a title.**
+
+
+#The graph suggests that longer bodys are correlated to longer tails, and also depicts how tail length is longer in proportion to body length among grass-bush lizards
 \
 \
-\
+```{r}
+anolis %>% 
+  ggplot(aes(x=body_length_mm,y=tail_length_mm))+
+  geom_point(aes(color=habitat))+
+  geom_smooth(method=lm, se=T)+
+  labs(title="Body vs. Tail Length", x="Body Length (mm)", y="Tail Length (mm)")
+  
+```
+
 \
 \
 
 **Problem 14. (4 points) Toepad lamellae are transverse, plate-like structures found on the ventral surface of the digits. They are a key adaptation that allows anoles to cling to and move efficiently on smooth and vertical surfaces. What is the mean number of toepad lamellae for each habitat type?**
 \
+```{r}
+trunk_ground <- anolis %>% 
+  select(habitat,toepad_lamellae_count) %>% 
+  filter(habitat=="Trunk-ground") %>% 
+  summarize(mean(toepad_lamellae_count)) %>% 
+  
+twig <- anolis %>% 
+  
+  select(habitat,toepad_lamellae_count) %>% 
+  filter(habitat=="Twig")%>% 
+  summarize(mean(toepad_lamellae_count))
+grass_bush <- anolis %>% 
+  
+  
+  select(habitat,toepad_lamellae_count) %>% 
+  filter(habitat=="Grass-bush")%>% 
+  summarize(mean(toepad_lamellae_count))
+trunk_crown <- anolis %>% 
+  
+  select(habitat,toepad_lamellae_count) %>% 
+  filter(habitat=="Trunk-crown")%>% 
+  summarize(mean(toepad_lamellae_count))
+
+```
+
 \
 \
 \
@@ -145,6 +245,10 @@ The variables include:
 \
 \
 \
+```{r}
+filter()
+```
+
 \
 \
 

@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-27" />
+<meta name="date" content="2026-01-29" />
 
 <title>Lab 7</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Lab 7</h1>
-<h4 class="date">2026-01-27</h4>
+<h4 class="date">2026-01-29</h4>
 
 </div>
 
@@ -1564,6 +1564,13 @@ large</code></pre>
 ## 10 Tiger  Pant… carni Carn… en                  15.8      NA        NA       8.2
 ## 11 Lion   Pant… carni Carn… vu                  13.5      NA        NA      10.5
 ## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+<pre class="r"><code>small &lt;- msleep %&gt;% 
+  filter(bodywt&lt;10) %&gt;% 
+  arrange(desc(bodywt))</code></pre>
+<pre class="r"><code>mean(large$bodywt)</code></pre>
+<pre><code>## [1] 1173.99</code></pre>
+<pre class="r"><code>mean(small$bodywt)</code></pre>
+<pre><code>## [1] 1.201304</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2><code>summarize()</code></h2>
@@ -1572,14 +1579,59 @@ statistics easier. The verb <code>summarize()</code> produces summary
 statistics for a given variable in a data frame. Let’s try the examples
 above using <code>summarize()</code>.</p>
 <p>Large mammals</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&gt;150) %&gt;% 
+  summarize(mean_bodywt_lg=mean(bodywt))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_bodywt_lg
+##            &lt;dbl&gt;
+## 1          1174.</code></pre>
 <p>Small mammals</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&lt;10) %&gt;% 
+  summarize(mean_bodywt_sm=mean(bodywt))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_bodywt_sm
+##            &lt;dbl&gt;
+## 1           1.20</code></pre>
 <p>You can also combine functions to make summaries for multiple
 variables.</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&gt;150)%&gt;%
+  summarize(mean_bodywt_lg=mean(bodywt),
+            min_bodywt_lg=min(bodywt),
+            max_bodywt_lg=max(bodywt),
+            sd_bodywt_lg=sd(bodywt))</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   mean_bodywt_lg min_bodywt_lg max_bodywt_lg sd_bodywt_lg
+##            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+## 1          1174.          161.          6654        1945.</code></pre>
 <p>Maybe you want to summarize all of the numeric variables in the data
 frame. You can use the <code>where()</code> function to select only the
 numeric variables.</p>
+<pre class="r"><code>msleep %&gt;% 
+  select(where(is.numeric)) %&gt;% 
+  summarize_all(mean)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1        10.4        NA          NA  13.6      NA   166.</code></pre>
 <p>Don’t forget to remove NA’s.</p>
+<pre class="r"><code>msleep %&gt;% 
+  select(where(is.numeric)) %&gt;% 
+  summarize_all(mean, na.rm=T)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1        10.4      1.88       0.440  13.6   0.282   166.</code></pre>
 <p>This is a little more efficient.</p>
+<pre class="r"><code>msleep %&gt;% 
+  summarize(across(where(is.numeric),
+                   ~mean(.x, na.rm=T)))</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1        10.4      1.88       0.440  13.6   0.282   166.</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -1587,21 +1639,74 @@ numeric variables.</p>
 <li>What is the mean, min, and max <code>bodywt</code> for the taxonomic
 order Primates? Provide the total number of observations.</li>
 </ol>
+<pre class="r"><code>msleep %&gt;% 
+  filter(order==&quot;Primates&quot;) %&gt;% 
+  summarize(across(where(is.numeric),
+                   ~mean(.x, na.rm=T)))</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1        10.5      1.25       0.977  13.5   0.254   13.9</code></pre>
 <p><code>n_distinct()</code> is a handy way of cleanly presenting the
 number of distinct observations. Notice that there are 9 genera with
 over 100 in body weight.</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&gt;100) %&gt;% 
+  distinct()</code></pre>
+<pre><code>## # A tibble: 11 × 11
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
+##  2 Asian… Elep… herbi Prob… en                   3.9      NA        NA      20.1
+##  3 Horse  Equus herbi Peri… domesticated         2.9       0.6       1      21.1
+##  4 Donkey Equus herbi Peri… domesticated         3.1       0.4      NA      20.9
+##  5 Giraf… Gira… herbi Arti… cd                   1.9       0.4      NA      22.1
+##  6 Pilot… Glob… carni Ceta… cd                   2.7       0.1      NA      21.4
+##  7 Afric… Loxo… herbi Prob… vu                   3.3      NA        NA      20.7
+##  8 Tiger  Pant… carni Carn… en                  15.8      NA        NA       8.2
+##  9 Lion   Pant… carni Carn… vu                  13.5      NA        NA      10.5
+## 10 Brazi… Tapi… herbi Peri… vu                   4.4       1         0.9    19.6
+## 11 Bottl… Turs… carni Ceta… &lt;NA&gt;                 5.2      NA        NA      18.8
+## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 <p>Here we show the number of distinct genera over 100 in body
 weight.</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&gt;100) %&gt;% 
+  summarize(n_genera=n_distinct(genus))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   n_genera
+##      &lt;int&gt;
+## 1        9</code></pre>
 <p>Not to be confused with n(), which counts the total number of
 observations.</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&gt;100) %&gt;% 
+  summarize(total=n())</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   total
+##   &lt;int&gt;
+## 1    11</code></pre>
 <p><code>pull()</code> is another useful verb that extracts a single
 column from a data frame as a vector.</p>
+<pre class="r"><code>msleep %&gt;% 
+  filter(bodywt&gt;100) %&gt;% 
+  distinct() %&gt;% 
+  pull(genus)</code></pre>
+<pre><code>##  [1] &quot;Bos&quot;           &quot;Elephas&quot;       &quot;Equus&quot;         &quot;Equus&quot;        
+##  [5] &quot;Giraffa&quot;       &quot;Globicephalus&quot; &quot;Loxodonta&quot;     &quot;Panthera&quot;     
+##  [9] &quot;Panthera&quot;      &quot;Tapirus&quot;       &quot;Tursiops&quot;</code></pre>
 </div>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
 <li>How many genera are represented in the msleep data frame?</li>
 </ol>
+<pre class="r"><code>msleep %&gt;% 
+  summarize(n_genera=n_distinct(genus)) </code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   n_genera
+##      &lt;int&gt;
+## 1       77</code></pre>
 </div>
 <div id="counts" class="section level2">
 <h2>Counts</h2>
@@ -1612,21 +1717,86 @@ are part of dplyr that are useful.</p>
 <p>For example, if we wanted to count the number of observations for
 each <code>vore</code> category in the <code>msleep</code> data frame we
 could do the following:</p>
+<pre class="r"><code>msleep %&gt;% 
+  count(vore, sort=T)</code></pre>
+<pre><code>## # A tibble: 5 × 2
+##   vore        n
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 herbi      32
+## 2 omni       20
+## 3 carni      19
+## 4 &lt;NA&gt;        7
+## 5 insecti     5</code></pre>
+<pre class="r"><code>msleep %&gt;% 
+  count(vore) %&gt;% 
+  ggplot(aes(x=vore, y=n))+
+  geom_col(aes(color=vore))</code></pre>
+<p><img role="img" aria-label src="data:image/png;base64,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" alt width="672" /></p>
 <p>You can even combine multiple variables to get counts. For example,
 if we wanted to count the number of observations for each
 <code>vore</code> category within each <code>order</code> category we
 could do the following:</p>
+<pre class="r"><code>msleep %&gt;% 
+  count(vore, order)</code></pre>
+<pre><code>## # A tibble: 32 × 3
+##    vore  order               n
+##    &lt;chr&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 carni Carnivora          12
+##  2 carni Cetacea             3
+##  3 carni Cingulata           1
+##  4 carni Didelphimorphia     1
+##  5 carni Primates            1
+##  6 carni Rodentia            1
+##  7 herbi Artiodactyla        5
+##  8 herbi Diprotodontia       1
+##  9 herbi Hyracoidea          2
+## 10 herbi Lagomorpha          1
+## # ℹ 22 more rows</code></pre>
 <p>The tabyl() function from the janitor package is also very useful for
 producing counts and percentages.</p>
+<pre class="r"><code>msleep %&gt;% 
+  tabyl(vore)</code></pre>
+<pre><code>##     vore  n    percent valid_percent
+##    carni 19 0.22891566    0.25000000
+##    herbi 32 0.38554217    0.42105263
+##  insecti  5 0.06024096    0.06578947
+##     omni 20 0.24096386    0.26315789
+##     &lt;NA&gt;  7 0.08433735            NA</code></pre>
 </div>
 <div id="practice-3" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>In the taxonomic order Carnivora, count the number of
-observations for each conservation status.</p></li>
-<li><p>Among herbivores, which order is most represented? Return the top
-5 orders with counts, sorted in descending order.</p></li>
+<li>In the taxonomic order Carnivora, count the number of observations
+for each conservation status.</li>
 </ol>
+<pre class="r"><code>msleep %&gt;% 
+  filter(order==&quot;Carnivora&quot;) %&gt;% 
+  count(conservation)</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   conservation     n
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 domesticated     2
+## 2 en               1
+## 3 lc               2
+## 4 nt               1
+## 5 vu               3
+## 6 &lt;NA&gt;             3</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Among herbivores, which order is most represented? Return the top 5
+orders with counts, sorted in descending order.</li>
+</ol>
+<pre class="r"><code>msleep %&gt;% 
+  filter(vore==&quot;herbi&quot;) %&gt;% 
+  count(order, sort=T) %&gt;% 
+  head(5)</code></pre>
+<pre><code>## # A tibble: 5 × 2
+##   order              n
+##   &lt;chr&gt;          &lt;int&gt;
+## 1 Rodentia          16
+## 2 Artiodactyla       5
+## 3 Perissodactyla     3
+## 4 Hyracoidea         2
+## 5 Proboscidea        2</code></pre>
 <p>–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
 </div>
 
