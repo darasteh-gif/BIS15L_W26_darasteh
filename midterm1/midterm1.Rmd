@@ -1,6 +1,6 @@
 ---
 title: "Midterm 1 W26"
-author: "Your Name Here"
+author: "Darius Arasteh"
 date: "`r Sys.Date()`"
 output:
   html_document: default
@@ -75,7 +75,7 @@ summary(anolis)
 
 **Question 4. (2 points) Clean the variable names so they are all lowercase and without special characters or spaces. Be sure to use the cleaned data for all subsequent analyses.**
 \
-\
+**I Cleaned the names when I loaded the data**
 ```{r}
 
 ```
@@ -212,23 +212,24 @@ anolis %>%
 **Problem 14. (4 points) Toepad lamellae are transverse, plate-like structures found on the ventral surface of the digits. They are a key adaptation that allows anoles to cling to and move efficiently on smooth and vertical surfaces. What is the mean number of toepad lamellae for each habitat type?**
 \
 ```{r}
-trunk_ground <- anolis %>% 
+anolis%>% 
   select(habitat,toepad_lamellae_count) %>% 
   filter(habitat=="Trunk-ground") %>% 
-  summarize(mean(toepad_lamellae_count)) %>% 
-  
-twig <- anolis %>% 
+  summarize(mean(toepad_lamellae_count)) 
+
+anolis%>% 
   
   select(habitat,toepad_lamellae_count) %>% 
   filter(habitat=="Twig")%>% 
   summarize(mean(toepad_lamellae_count))
-grass_bush <- anolis %>% 
+
+anolis%>% 
   
   
   select(habitat,toepad_lamellae_count) %>% 
   filter(habitat=="Grass-bush")%>% 
   summarize(mean(toepad_lamellae_count))
-trunk_crown <- anolis %>% 
+anolis%>% 
   
   select(habitat,toepad_lamellae_count) %>% 
   filter(habitat=="Trunk-crown")%>% 
@@ -246,7 +247,12 @@ trunk_crown <- anolis %>%
 \
 \
 ```{r}
-filter()
+anolis %>% 
+   filter(habitat=="Trunk-crown")%>% 
+   ggplot(aes(x=island,y=toepad_lamellae_count))+
+  geom_boxplot(aes(color=island))+
+  labs(title="Trunk-Crown Anole Toepad Lamellae # by Island", x="Island", y="Toepad Lamellae Count")
+  
 ```
 
 \
