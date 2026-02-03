@@ -34,7 +34,8 @@ elephants <- read_csv("data/elephants.csv") %>%
 
 1. What is the average age, shoulder height, tusk length, and tusk circumference for all elephants in the data set?
 ```{r}
-
+elephants %>% 
+  summarize(across(where(is.numeric,mean=~mean())))
 ```
 
 We can include multiple functions using this same structure, but it becomes cumbersome.
@@ -58,17 +59,25 @@ elephants %>%
 ## `group_by()`
 The `summarize()` function is often more useful when used with `group_by()`. `group_by()` allows us to group data by a categorical variable(s) of interest.   
 ```{r}
-
+elephants %>% 
+  group_by(sex)
 ```
 
 Notice that the output doesn't look different, but two groups are indicated. Any verbs that follow `group_by()` will be applied to each group separately. For example, what is the average age, shoulder height, tusk length, and tusk circumference for males and females?
 ```{r}
-
+elephants %>% 
+  group_by(sex) %>% 
+  summarize(across(where(is.numeric),
+      ~mean(.x, na.rm = TRUE)))
 ```
 
 We can group by more than one variable.
 ```{r}
-
+elephants %>% 
+  group_by(years_of_sample_collection,sex) %>% 
+  summarize(mean_estimated_age_years=mean(estimated_age_years,na.rm=T),
+            n=n(),
+            .groups='keep')
 ```
 
 Do you remember this question from homework 7?  
@@ -77,7 +86,14 @@ Do you remember this question from homework 7?
 
 Without `group_by()`, we had to produce multiple code chunks- we are now more efficient!
 ```{r}
-
+elephants %>% 
+  filter(years_of_sample_collection=="1966-68") %>% 
+  group_by(sex,years_of_sample_collection) %>% 
+  summarise(mean_age=mean(estimated_age_years, na.rm=T),
+            median_age=median(estimated_age_years, na.rm=T),
+            sd_age=mean(estimated_age_years, na.rm=T),
+            n=n(),
+            .groups='keep')
 ```
 
 ```{r}
@@ -93,17 +109,31 @@ Use the built-in `msleep` data to answer the following questions.
 
 1. Calculate the min, max, mean, and total number of observations for body weight by vore.  
 ```{r}
-
+msleep %>% 
+  group_by(vore) %>% 
+  summarize(mean=mean(bodywt,na.rm=T),
+            min=min(bodywt,na.rm=T),
+            max=max(bodywt,na.rm=T))
 ```
 
 2. Calculate mean brain weight by taxonomic order in the msleep data.
 ```{r}
-
+msleep %>% 
+  group_by(order,brainwt) %>% 
+  summarize(mean_brainwt=mean(brainwt,na.rm=T))
 ```
 
 3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
 ```{r}
-
+msleep %>% 
+  group_by(order,brainwt) %>% 
+  summarize(mean=mean(brainwt,na.rm=T),
+            n=n(),.groups='keep')
+```
+```{r}
+msleep %>% 
+  filter(order=="Cetacea") %>% 
+  select(order,genus,brainwt)
 ```
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
