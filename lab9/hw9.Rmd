@@ -29,7 +29,7 @@ This homework loosely follows the tutorial of [R Ladies Sydney](https://rladiess
 
 1. Start by loading the data `sydneybeaches`. Do some exploratory analysis to get an idea of the data structure.
 ```{r}
-sydneybeaches <- read_csv("data/sydneybeaches.csv")
+sydneybeaches <- read_csv("data/sydneybeaches.csv") %>% clean_names()
 sydneybeaches
 ```
 
@@ -41,37 +41,61 @@ _No, there are columns like region and council with consistent data for the enti
 
 3. We are only interested in the variables site, date, and enterococci_cfu_100ml. Make a new object focused on these variables only. Name the object `sydneybeaches_long`
 ```{r}
+sydneybeaches_long<-sydneybeaches %>% 
+  select(site,date,enterococci_cfu_100ml)
 
 ```
 
 4. Pivot the data such that the dates are column names and each beach only appears once (wide format). Name the object `sydneybeaches_wide`
 ```{r}
-
+sydneybeaches_wide<- sydneybeaches_long %>% 
+  pivot_wider(names_from = "date",
+              values_from = "enterococci_cfu_100ml")
 ```
 
 5. Pivot the data back so that the dates are data and not column names.
 ```{r}
-
+sydneybeaches_wide %>% 
+  pivot_longer(-site,
+               names_to = "date")
 ```
 
 6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
 ```{r}
-
+sydneybeaches_long<-sydneybeaches_long %>% 
+  separate(date, into=c("day","month","year"),sep='/') %>% 
+  mutate(year=as.integer(year),enterococci_cfu_100ml=as.integer(enterococci_cfu_100ml))
+  
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 ```{r}
+avg_beach_year <- sydneybeaches_long %>% 
+  group_by(site, year) %>% 
+  summarise(
+    avg_enterococci = mean(enterococci_cfu_100ml, na.rm = T),
+    .groups = "drop"
+  )
+
+avg_beach_year
 
 ```
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
-
+avg_beach_year %>% 
+  pivot_wider(
+    names_from = year,
+    values_from = avg_enterococci
+  )
 ```
 
 9. What was the most polluted beach in 2013?
 ```{r}
-
+avg_beach_year %>% 
+  filter(year==2013) %>% 
+  arrange(desc(avg_enterococci)) %>% 
+  head(1)
 ```
 
 ```{r}
@@ -80,7 +104,10 @@ _No, there are columns like region and council with consistent data for the enti
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
 ```{r}
-
+sydneybeaches_long %>% 
+  group_by(site) %>% 
+  summarise(avg_enterococci = mean(enterococci_cfu_100ml, na.rm = TRUE)) %>% 
+  arrange(desc(avg_enterococci))
 ```
 
 ## Knit and Upload
