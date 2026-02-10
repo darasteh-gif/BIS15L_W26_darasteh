@@ -1,6 +1,6 @@
 ---
 title: "Homework 10"
-author: "Key"
+author: "Darius Arasteh"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -34,33 +34,55 @@ sharks <-
 ## Questions
 1. Are there any "hotspots" for shark incidents in California? Show the top five counties with the most incidents.
 ```{r}
-
+sharks %>% 
+  select(incident_num,county) %>% 
+  arrange(desc(incident_num)) %>% 
+  head(5)
 ```
 
 2.  Make a plot that shows the total number of incidents per county.
 ```{r}
-
+sharks %>% 
+  ggplot(aes(x=county,y=incident_num, fill=species))+
+  geom_col()+
+  coord_flip()+
+  labs(title="Incidents per County", x="County", y="Number of Incidents")
 ```
 
 3. Are there months of the year when incidents are more likely to occur? Make a plot that shows the total number of incidents by month. Which month has the highest number of incidents?  
 ```{r}
-
+sharks %>% 
+  ggplot(aes(x=month,y=incident_num,fill=species))+
+  geom_col()+
+  coord_flip()+
+  labs(title="Number of Incidents per Month", x="Month", y="# Incidents")
 ```
-
+_October_
 ```{r}
 
 ```
 
 4. Is there a time of day when most attacks occur? Make a plot that shows the total number of incidents by time of day. Which time of day has the highest number of incidents?  
 ```{r}
-
+sharks %>% 
+  arrange(desc(incident_num)) %>% 
+  head(10) %>% 
+  ggplot(aes(x=time,y=incident_num,fill=species))+
+  geom_col()+
+  theme(axis.text.x=element_text(angle=90,hjust=0.99))+
+  labs(title="Number of Incidents per Time of Day", x="Time of Day", y="# Incidents")
 ```
 
 5. How do the number and types of injuries compare by county? Make a table that shows the number of injury types by county. Which county has the highest number incidents? (hint: your table should be in wide format)
 ```{r}
-
+sharks %>% 
+  select(injury,county) %>% 
+  group_by(county) %>% 
+  pivot_wider(names_from = county,
+              values_from=injury)
+  
+  
 ```
-
 6. Use the table from #5 to make a plot that shows the total number of incidents by county.
 ```{r}
 
