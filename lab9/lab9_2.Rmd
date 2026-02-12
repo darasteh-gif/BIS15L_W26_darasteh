@@ -93,7 +93,7 @@ We would still need to deal with the "_" in the patient column. We can do this u
 ```{r}
 heartrate3 <- heartrate2 %>%
   separate(patient, into=c("patient", "gender"), sep="_") %>% 
-  pivot_longer(_c(patient,gender),
+  pivot_longer(c(patient,gender),
                names_to="drug",
                values_to="heartrate")
   
