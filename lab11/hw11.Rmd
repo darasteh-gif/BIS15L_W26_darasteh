@@ -51,21 +51,36 @@ gapminder %>%
 3. Which five countries have had the largest absolute population growth between 1925-2025? Show this as a table.
 ```{r}
 gapminder %>% 
-  filter(year %IN%) %>% 
+  filter(year %in% c(1925, 2025)) %>% 
+  group_by(country,year) %>% 
+  summarise(pop=pop[1]) %>% 
   pivot_wider(names_from = year,
               values_from = pop) %>% 
-  mutate(pop_diff=`2025`-`1925`)
+  mutate(pop_diff=`2025`-`1925`) %>% 
+  arrange(desc(pop_diff)) %>% 
+  head(5)
   
 ```
 
 4. Make a plot that shows population growth over time for the top country you found in question #3.
 ```{r}
-
+ gapminder%>% 
+  filter(country=='India') %>% 
+  ggplot(aes(x=year, y=pop))+
+  geom_line(color='darkcyan')+
+  scale_x_continuous(breaks=seq(1925,2025, by=25), minor_breaks = NULL)+
+  theme(axis.text.x=element_text(angle=60, hjust=1))+
+  labs(title="India Pop Growth", x="Year", y="Population ")
 ```
 
 5. Has global life expectancy changed between 1925 and 2025? Show the min, median, mean, and max for all countries (combined) in the dataset.
 ```{r}
-
+gapminder %>% 
+  ggplot(aes(x=year, y=lex))+
+  geom_line(colour='darkcyan')+
+  scale_x_continuous(breaks=seq(1925,2025, by=25), minor_breaks = NULL)+
+  theme(axis.text.x=element_text(angle=60, hjust=1))+
+  labs(title="India Pop Growth", x="Year", y="Population ")
 ```
 
 6. Make a plot that shows the distribution of life expectancy for all countries in 1925 and 2025 (try using `geom_density`). What do you notice about the shift in life expectancy over time?
