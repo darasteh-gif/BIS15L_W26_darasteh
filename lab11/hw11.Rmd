@@ -76,17 +76,22 @@ gapminder %>%
 5. Has global life expectancy changed between 1925 and 2025? Show the min, median, mean, and max for all countries (combined) in the dataset.
 ```{r}
 gapminder %>% 
-  ggplot(aes(x=year, y=lex))+
-  geom_line(colour='darkcyan')+
-  scale_x_continuous(breaks=seq(1925,2025, by=25), minor_breaks = NULL)+
-  theme(axis.text.x=element_text(angle=60, hjust=1))+
-  labs(title="India Pop Growth", x="Year", y="Population ")
+  group_by(year) %>% 
+  summarise(min_lex= min(lex, na.rm=T),
+            med_lex= median(lex, na.rm=T),
+            mean_lex=mean(lex,na.rm=T),
+            max_lex=max(lex, na.rm=T))
 ```
 
 6. Make a plot that shows the distribution of life expectancy for all countries in 1925 and 2025 (try using `geom_density`). What do you notice about the shift in life expectancy over time?
-```{r}
 
+```{r}
+gapminder %>% 
+  ggplot(aes(x=lex,fill=factor(year)))+
+  geom_density(alpha=.5)+
+  
 ```
+
 
 7. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer in 2025? Show this as a plot. (Suggestion! Remove Monaco as an extreme outlier.)
 ```{r}
