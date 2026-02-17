@@ -150,17 +150,17 @@ gapminder %>%
   filter(year == 2025) %>% 
   arrange(desc(pop)) %>% 
   slice(1:10) %>% 
-  select(country, pop, lex)
+  select(country, pop, gdp)
 ```
 
 ```{r}
 gapminder %>% 
   filter(year == 2025) %>% 
-  ggplot(aes(x = pop, y = lex)) +
+  ggplot(aes(x = pop, y = gdp)) +
   geom_point(alpha = 0.6) +
   scale_x_log10() +
   labs(
-    title = "Population vs Life Expectancy",x = "Population", y = "Life Expectancy"
+    title = "Population vs GDP",x = "Population", y = "GDP"
   )
 ```
 
