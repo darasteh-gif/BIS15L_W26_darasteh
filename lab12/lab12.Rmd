@@ -43,7 +43,7 @@ life_history <- read_csv("data/mammal_lifehistories_v3.csv") %>% clean_names()
 ## Are there any NA's?
 Sometimes using one or more of the summary functions can give us clues to how the authors have represented missing data. This doesn't always work, but it is a good place to start.  
 ```{r}
-
+glimpse(life_history)
 ```
 
 ```{r}
@@ -53,7 +53,7 @@ Sometimes using one or more of the summary functions can give us clues to how th
 ## Where are the NA's?
 This will give you a quick summary of the number of NA's in each variable. Notice that, at least for now, it doesn't look like there are NA's in most variables because they are still represented by -999.
 ```{r}
-
+    
 ```
 
 Here we look for all of the -999's.
