@@ -87,34 +87,81 @@ gapminder %>%
 
 ```{r}
 gapminder %>% 
-  ggplot(aes(x=lex,fill=factor(year)))+
-  geom_density(alpha=.5)+
+  filter(year %in% c(1925, 2025)) %>% 
+  ggplot(aes(x = lex, fill = factor(year))) +
+  geom_density(alpha = 0.5) +
+  labs(
+    title = "Distribution of Life Expectancy: 1925 vs 2025", x = "Life Expectancy",fill = "Year"
+  )
   
 ```
 
 
 7. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer in 2025? Show this as a plot. (Suggestion! Remove Monaco as an extreme outlier.)
 ```{r}
-
+gapminder %>% 
+  filter(year == 2025, country != "Monaco") %>% 
+  ggplot(aes(x = gdp, y = lex)) +
+  geom_point(alpha = 0.6) +
+  scale_x_log10() +
+  labs(
+    title = "GDP per Capita vs Life Expectancy (2025)", x = "GDP per Capita", y = "Life Expectancy"
+  )
 ```
 
 8. Which five countries have had the highest absolute GDP per capita growth over the past 50 years? Show this as a table. (Suggestion! Remove Monaco as an extreme outlier.)
 ```{r}
-
+gapminder %>% 
+  filter(year %in% c(1975, 2025), country != "Monaco") %>% 
+  select(country, year, gdp) %>% 
+  pivot_wider(names_from = year, 
+              values_from = gdp) %>% 
+  mutate(gdp_growth = `2025` - `1975`) %>% 
+  arrange(desc(gdp_growth)) %>% 
+  slice(1:5)
 ```
 
 9. How does per capita GDP growth compare between these same five countries over the past 50 years? Show this as a plot.
 ```{r}
 
+top_gdp <- gapminder %>% 
+  filter(year %in% c(1975, 2025), country != "Monaco") %>% 
+  select(country, year, gdp) %>% 
+  pivot_wider(names_from = year, values_from = gdp) %>% 
+  drop_na(`1975`, `2025`) %>% 
+  mutate(gdp_growth = `2025` - `1975`) %>% 
+  arrange(desc(gdp_growth)) %>% 
+  slice(1:5) %>% 
+  pull(country)
+
+gapminder %>% 
+  filter(country %in% top_gdp, year >= 1975) %>% 
+  ggplot(aes(x = year, y = gdp, color = country)) +
+  geom_line(linewidth = 2) +
+  scale_y_log10() +
+  labs(
+    title = "GDP per Capita Growth", x = "Year", y = "GDP",color = "Country"
+  )
 ```
 
 10. Do one analysis of your choice that includes a table and plot as outputs.
 ```{r}
-
+gapminder %>% 
+  filter(year == 2025) %>% 
+  arrange(desc(pop)) %>% 
+  slice(1:10) %>% 
+  select(country, pop, lex)
 ```
 
 ```{r}
-
+gapminder %>% 
+  filter(year == 2025) %>% 
+  ggplot(aes(x = pop, y = lex)) +
+  geom_point(alpha = 0.6) +
+  scale_x_log10() +
+  labs(
+    title = "Population vs Life Expectancy",x = "Population", y = "Life Expectancy"
+  )
 ```
 
 ## Knit and Upload
