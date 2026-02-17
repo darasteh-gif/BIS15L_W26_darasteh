@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BatchLogDataSet SchemaVersion="65536" DataVersion="1" SIVersion="C.1.5.588.9" BatchName="PC_LGH_20230523.b" BatchDataPath="D:\Agilent\ICPMH\1\DATA\Rachel Johnson\PC_LGH_20230523.b" UserDefineColumnsCaptions="" HashCode="100F75AA635A23B70D4DBCC19BE5D913D70DE6A02173FAB5780852A249E2EDF8F835D2945052A2B3FB9786D85F909FCAC41FEEC1EFFA3A26D2939111D7C3F9F6" xmlns="BatchLog">
+  <BatchLogInfo>
+    <BatchLogID>-1</BatchLogID>
+    <SampleLogID>0</SampleLogID>
+    <AcqDateTime>2023-05-23T13:30:01.5877581-07:00</AcqDateTime>
+    <AcqResult>Skip</AcqResult>
+    <Comment>Slide #1</Comment>
+    <DataFileName />
+    <OperatorName>Admin</OperatorName>
+    <SampleName>PCBM</SampleName>
+    <SampleType>Sample</SampleType>
+  </BatchLogInfo>
+  <BatchLogInfo>
+    <BatchLogID>-1</BatchLogID>
+    <SampleLogID>1</SampleLogID>
+    <AcqDateTime>2023-05-23T13:30:01.5877581-07:00</AcqDateTime>
+    <AcqResult>Skip</AcqResult>
+    <Comment>PCBN, PCBO, PCBP</Comment>
+    <DataFileName />
+    <OperatorName>Admin</OperatorName>
+    <SampleName>PCBN_PCBO_PCBP</SampleName>
+    <SampleType>Sample</SampleType>
+  </BatchLogInfo>
+  <BatchLogInfo>
+    <BatchLogID>-1</BatchLogID>
+    <SampleLogID>2</SampleLogID>
+    <AcqDateTime>2023-05-23T13:30:14-07:00</AcqDateTime>
+    <AcqResult>Pass</AcqResult>
+    <DataFileName>D:\Agilent\ICPMH\1\DATA\Rachel Johnson\PC_LGH_20230523.b\PC_2016_08_09.d</DataFileName>
+    <DilutionResult>1</DilutionResult>
+    <OperatorName>Admin</OperatorName>
+    <SampleName>PC_2016_08_PC_2016_09</SampleName>
+    <SampleType>Sample</SampleType>
+    <ErrorMessage />
+  </BatchLogInfo>
+</BatchLogDataSet>

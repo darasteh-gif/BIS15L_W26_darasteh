@@ -1,0 +1,5 @@
+#,Acq. Date-Time,Sample Type,Sample Name,Vial#,File Name,Acquisition Result,Error Message,Dilution Result,Comment,Operator,Error Action,Replicates,Level,ISTD Conc,Auto Dilution (ISIS 2),Total Dil.,Final Weight or Volume,Sample Weight or Volume,Dilution Multiplier,Sublist,Total Acq Time,Max. Daily Dose,%J,User Def. 1,User Def. 2,User Def. 3,QC Failed Criteria,QC Failed Elements,
+1,2023-05-23 13:30:01,Sample,PCBM,<Manual>,-,Skip,-,-,Slide #1,Admin,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+2,2023-05-23 13:30:01,Sample,PCBN_PCBO_PCBP,<Manual>,-,Skip,-,-,"PCBN, PCBO, PCBP",Admin,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+3,2023-05-23 13:30:14,Sample,PC_2016_08_PC_2016_09,<Manual>,D:\Agilent\ICPMH\1\DATA\Rachel Johnson\PC_LGH_20230523.b\PC_2016_08_09.d,Pass,-,1,-,Admin,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+

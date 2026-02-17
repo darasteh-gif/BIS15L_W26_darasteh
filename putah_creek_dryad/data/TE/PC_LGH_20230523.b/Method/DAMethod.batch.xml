@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<QuantitationDataSet SchemaVersion="65609" DataVersion="6" BatchState="Initial" ReferenceWindow="80" ReferenceWindowPercentOrMinutes="Percent" NonReferenceWindow="200" NonReferenceWindowPercentOrMinutes="Percent" CorrelationWindow="2" ApplyMultiplierTarget="true" ApplyMultiplierSurrogate="true" ApplyMultiplierISTD="false" IgnorePeaksNotFound="false" RelativeISTD="false" AuditTrail="false" LibraryPathFileName="" CCMaximumElapsedTimeInHours="0" BracketingType="None" StandardAddition="false" DynamicBackgroundSubtraction="false" BatchName="DAMethod.batch.xml" BatchDataPathFileName="D:\Agilent\ICPMH\1\DATA\Rachel Johnson\PC_LGH_20230523.b\Method\DAMethod.batch.xml" DAMethodPathFileNameOrigin="" AnalystName="Admin" ReportGeneratorName="" AnalysisTimeStamp="0001-01-01T00:00:00-08:00" DAMethodLastAppliedTimeStamp="2023-05-23T13:30:01.041012-07:00" CalibrationLastUpdatedTimeStamp="0001-01-01T00:00:00-08:00" ReportGenerationStartedTimeStamp="0001-01-01T00:00:00-08:00" ReportResultsDataPathFileName="" CICDifferentPeak="false" IntfFileLastAppliedTimeStamp="0001-01-01T00:00:00-08:00" IntfFileLastWriteTime="0001-01-01T00:00:00-08:00" SQFileLastAppliedTimeStamp="0001-01-01T00:00:00-08:00" ElementFileLastAppliedTimeStamp="0001-01-01T00:00:00-08:00" SQFileLastWriteTime="0001-01-01T00:00:00-08:00" ElementFileLastWriteTime="0001-01-01T00:00:00-08:00" SemiQuantDataType="Main" P2PCountCorrection="false" CommittedByAcq="true" ISTDExpValue="" QCISTDExpValue="" AnalyteExpValue="" QCAnalyteExpValue="" TuneModeData="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot; standalone=&quot;yes&quot;?&gt;&lt;TuneModeData&gt;&lt;Key value=&quot;1&quot;&gt;&lt;ModeName&gt;Laser No Gas&lt;/ModeName&gt;&lt;/Key&gt;&lt;/TuneModeData&gt;" SpecifyProcessOrder="false" InstrumentType="ICPMS" GlobalIntegrationParameters="" GlobalIntegrator="" GlobalPeakFilterThreshold="" GlobalPeakFilterThresholdValue="0" GlobalThresholdNumberOfPeaks="0" GlobalCIC="" BkgndSubtractionMode="" StandardQCAction_CountRSD="" StandardQCAction_IstdRecoveryPercent="" StandardQCAction_BlankConcCheck="" StandardQCAction_CurveFitR="" StandardQCAction_CalibConc="" StandardQCAction_QCLevel1="" StandardQCAction_QCLevel2="" StandardQCAction_QCLevel3="" StandardQCAction_QCLevel4="" StandardQCAction_QCLevel5="" QCLevel1Caption="" QCLevel2Caption="" QCLevel3Caption="" QCLevel4Caption="" QCLevel5Caption="" HyphenatedModuleType="Unspecified" StandardQCAction_SpikeRecoveryPercent="" ComputeSNR="false" TimeProgramedSNPAnalysis="false" CustomActionPostProcess="" ApplySQMethodBasedOnFQ="false" IsREEDivalentIonCorrectionAvailable="false" UploadLIMSFileFlagPostProcess="0" UserDefinedColumns="" HashCode="503E0AADAAA96CE080E612CE907CC4A6D49E6B93A54C5CB939C3B11B94D8697127D10CAB6D23A1FF729F87DE15F625CDB411D4D3CFCB82A311E551F624BE40A0" xmlns="Quantitation">
+  <Batch>
+    <BatchID>-1</BatchID>
+    <SampleID>0</SampleID>
+    <AcqDateTime>2023-03-28T11:05:56.8860379-07:00</AcqDateTime>
+    <Completed>false</Completed>
+    <DataPathName>..\</DataPathName>
+    <Locked>false</Locked>
+    <SampleApproved>false</SampleApproved>
+    <SampleName />
+    <SampleType>Sample</SampleType>
+    <AnalysisMode>Timechart</AnalysisMode>
+    <BatchReportTemplateFiles>&lt;?xml version="1.0" encoding="utf-16" standalone="yes"?&gt;&lt;Parameters&gt;&lt;Parameter&gt;&lt;Name&gt;BatchFQReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;BatchSQReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;BatchIRReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;BatchIDReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;/Parameters&gt;</BatchReportTemplateFiles>
+    <BkgndSubtractionMode>CountSubtractionwithoutISTDs</BkgndSubtractionMode>
+    <CalibDisplayConfig>&lt;?xml version="1.0" encoding="utf-16" standalone="yes"?&gt;&lt;Parameters&gt;&lt;Parameter&gt;&lt;Name&gt;CalibEditISTDConc&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;CalibWeightDisplay&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;VirtualISTDCorrection&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;/Parameters&gt;</CalibDisplayConfig>
+    <CalibrationExecutionOrder>AcquisitionOrder</CalibrationExecutionOrder>
+    <CalibrationMethod>ExternalCalibration</CalibrationMethod>
+    <DataModeOfSample>TimeResolved</DataModeOfSample>
+    <Disabled>false</Disabled>
+    <EnabledAnalysisMethods>&lt;?xml version="1.0" encoding="utf-16" standalone="yes"?&gt;&lt;Parameters&gt;&lt;Parameter&gt;&lt;Name&gt;FullQuantAnalysis&lt;/Name&gt;&lt;Value&gt;True&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;SemiQuantAnalysis&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;IsotopeRatioAnalysis&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;IsotopeDilutionAnalysis&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;QcCheckOnFullQuant&lt;/Name&gt;&lt;Value&gt;False&lt;/Value&gt;&lt;/Parameter&gt;&lt;/Parameters&gt;</EnabledAnalysisMethods>
+    <ExecuteAnalysisFlag>true</ExecuteAnalysisFlag>
+    <FixISTDRefDataFile>false</FixISTDRefDataFile>
+    <IntegrationParamApplyToAllFlag>true</IntegrationParamApplyToAllFlag>
+    <InterferenceCorFileName>AcqDefined</InterferenceCorFileName>
+    <ISTDConcLevel>1</ISTDConcLevel>
+    <ReportTemplateFiles>&lt;?xml version="1.0" encoding="utf-16" standalone="yes"?&gt;&lt;Parameters&gt;&lt;Parameter&gt;&lt;Name&gt;FQReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;SQReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;IRReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;IDReportTemplate&lt;/Name&gt;&lt;Value /&gt;&lt;/Parameter&gt;&lt;/Parameters&gt;</ReportTemplateFiles>
+    <SQISTDCorrectionParameters>&lt;?xml version="1.0" encoding="utf-16" standalone="yes"?&gt;&lt;Parameters&gt;&lt;Parameter&gt;&lt;Name&gt;ISTDMode&lt;/Name&gt;&lt;Value&gt;General&lt;/Value&gt;&lt;/Parameter&gt;&lt;/Parameters&gt;</SQISTDCorrectionParameters>
+    <SQMinimumCPSToReport>0</SQMinimumCPSToReport>
+    <SQTuneStep>1</SQTuneStep>
+    <SQUnit>PPB</SQUnit>
+    <VISFit>PointToPoint</VISFit>
+    <WorklistGenerateReport>&lt;?xml version="1.0" encoding="utf-16" standalone="yes"?&gt;&lt;Parameters&gt;&lt;Parameter&gt;&lt;Name&gt;Enabled&lt;/Name&gt;&lt;Value&gt;True&lt;/Value&gt;&lt;/Parameter&gt;&lt;Parameter&gt;&lt;Name&gt;Path&lt;/Name&gt;&lt;Value&gt;.\IcpReport\Sequence&lt;/Value&gt;&lt;/Parameter&gt;&lt;/Parameters&gt;</WorklistGenerateReport>
+  </Batch>
+</QuantitationDataSet>
