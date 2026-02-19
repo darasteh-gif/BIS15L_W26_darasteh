@@ -13,10 +13,11 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
 1. List your group members' names below.  
+_.Zirui Zheng, Wenliang Weng, Darius Arasteh._
 
 2. Provide a link to your project repository. There should be only _one_ project repository per group. The owner needsto add group members as collaborators along with `jmledford3115` and `bryshalm`.  
-
+_.https://github.com/ziruizhengandrew/BIS15L_W2026_Group-7._
 3. Inside your repository, create a data folder. Inside the data folder, put copies of the candidate datasets you found along with the original articles.  
-
+_.Done._
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 
