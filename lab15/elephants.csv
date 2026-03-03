@@ -1,0 +1,48 @@
+library(tidyverse)
+library(janitor)
+library(shiny)
+library(shinydashboard)
+
+elephants <- read_csv("data/elephants_data/elephants.csv") %>%
+  clean_names()
+
+
+ui <- dashboardPage(
+
+  dashboardHeader(title="Elephant Height and Age by Sex"),
+  
+  dashboardSidebar(
+    
+    
+    
+  
+  
+    selectInput("x",
+              "Select Population",
+              choices=sort(unique(elephants$sex)),
+              selected ="F")
+  
+    
+  ),
+    
+    
+  dashboardBody(
+    plotOutput("plot", width="500px", height="400px")
+  )  
+  )
+  
+    
+
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    
+elephants %>% 
+  filter(input$x==.data[["sex"]]) %>% 
+  ggplot(aes(x=height, y=age))+
+  geom_point()+
+      theme_minimal()
+})
+}
+
+shinyApp(ui, server)
