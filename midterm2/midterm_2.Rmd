@@ -1,6 +1,7 @@
 ---
 title: "Midterm 2 W26"
 date: "`r Sys.Date()`"
+author:"Darius Arasteh"
 output:
   html_document:
     theme: spacelab
@@ -33,7 +34,7 @@ library(shiny)
 ## API Key
 Since you will build a map as part of the exam, take a moment to register your API key. You may need to look up your [stadia maps](https://client.stadiamaps.com/dashboard/overview) API key online (please do that now).
 ```{r}
-#register_stadiamaps("YOUR API KEY", write = FALSE)
+register_stadiamaps("98ed9db5-d37d-4aee-af77-e9e3f4d0f242", write = FALSE)
 ```
 
 ## About the data
@@ -72,11 +73,56 @@ polar_bears <-
 
 1. (2 points) List the variable names and use a summary function to get an idea of the data structure.
 
+```{r}
+names(polar_bears)
+glimpse(polar_bears)
+```
+_names are: "bear_id"       "capture_date"  "popn"          "sex"           "age_class"     "mating"        "denning"      
+ [8] "lat"           "long"          "urea_nitrogen" "creatinine" _
+
 2. (3 points) How are NA's represented and where are they distributed in the variables? Use the `naniar` package to visualize the distribution of NA's in the data and replace any alternative representations of NA with actual NA values.
+
+```{r}
+polarbear_nas <- polar_bears %>% 
+  replace_with_na_all(condition=~.x %in% c(-999, "NA", " ", "unknown"))
+```
+
+```{r}
+polarbear_nas %>% 
+  miss_var_summary()
+```
+##Nas are represented by the word "unknown", and there are 299 in mating and 91 in denning
+
 
 3. (6 points) Is sampling even for both sexes? Make a count the shows the number of males and females sampled by population and make a plot to visualize the counts.
 
+```{r}
+polarbear_nas %>% 
+  count(sex, sort=T)
+```
+
+
+```{r}
+polarbear_nas %>% 
+  ggplot(aes(x=sex, fill=sex))+
+  geom_bar()+
+  labs(title="Numer of Bears sampled by Sex", x="Sex", y="Number Sampled")
+  
+```
+
 4. (6 points) How many bears were sampled in each year for both populations? Make a line plot(s) to visualize sampling by year for both populations. (hint: you will need to pull apart the date to get the year in its own column)
+
+```{r}
+polarbear_nas %>% 
+  separate(capture_date, into=c("year","month","day"),sep='-') %>% 
+  ggplot(aes(x=sex))+
+  geom_line(fill="steelblue")
+  
+
+  
+  
+```
+
 
 5. (2 points) What are the min, median, mean, and max values for `urea_nitrogen` and `creatinine`?
 
