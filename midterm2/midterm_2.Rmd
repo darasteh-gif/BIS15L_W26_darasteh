@@ -1,7 +1,7 @@
 ---
 title: "Midterm 2 W26"
 date: "`r Sys.Date()`"
-author:"Darius Arasteh"
+author: "Darius Arasteh"
 output:
   html_document:
     theme: spacelab
@@ -113,29 +113,133 @@ polarbear_nas %>%
 4. (6 points) How many bears were sampled in each year for both populations? Make a line plot(s) to visualize sampling by year for both populations. (hint: you will need to pull apart the date to get the year in its own column)
 
 ```{r}
-polarbear_nas %>% 
-  separate(capture_date, into=c("year","month","day"),sep='-') %>% 
-  ggplot(aes(x=sex))+
-  geom_line(fill="steelblue")
-  
+polarbear_nas <- polarbear_nas %>% 
+  separate(capture_date, into=c("year","month","day"),sep='-')
+```
 
+```{r}
+polarbear_nas %>% 
+  mutate(numbersampled=n_distinct(bear_id)) %>% 
+  ggplot(aes(x=year, y=numbersampled))+ 
+  geom_line()+
+  facet_wrap(~sex)+
+  labs(title="Bears Sampled per Year (Male/Female", x="Year", y="Bears Sampled")
+  
+  
   
   
 ```
 
 
 5. (2 points) What are the min, median, mean, and max values for `urea_nitrogen` and `creatinine`?
+```{r}
+polarbear_nas %>% 
+  summarize(mean_ureaN=mean(urea_nitrogen, na.rm=T),
+            median_ureaN=median(urea_nitrogen, na.rm=T),
+            min_ureaN=min(urea_nitrogen, na.rm=T),
+            max_ureaN=max(urea_nitrogen, na.rm=T),
+            n=n()) 
+polarbear_nas %>% 
+  summarize(mean_creatine=mean(creatinine, na.rm=T),
+            median_creatine=median(creatinine, na.rm=T),
+            min_creatine=min(creatinine, na.rm=T),
+            max_creatine=max(creatinine, na.rm=T),
+            n=n())
+```
+
 
 6. (3 points) As explained above, the ratio of `urea_nitrogen` to `creatinine` is used as an index of fasting. To calculate the ratio, we need to multiply `urea_nitrogen` by 0.466, then divide by `creatinine`. Create a new variable called `un_creat_ratio` that contains this calculation.
+```{r}
+polarbear_nas<-polarbear_nas %>% 
+  mutate(un_creat_ratio= (urea_nitrogen*.466)/creatinine)
+```
+
 
 7. (4 points) The authors of the study categorized bears as fasting if their `un_creat_ratio` was less than or equal to 10. Use `case_when()` to create a new variable called `fasting` that categorizes bears as fasting or not.
+```{r}
+polarbear_nas<-polarbear_nas %>% 
+  mutate(un_creat_ratio= (urea_nitrogen*.466)/creatinine) %>% 
+  mutate(fasting=case_when(un_creat_ratio<=10 ~"yes",
+                           un_creat_ratio>10~"no"))
+```
 
 8. (6 points) The authors found that the number of fasting bears increased in the SB population but decreased in the CS population. Make a plot(s) that shows the number of fasting bears by year for both populations to visualize this trend.
 
+```{r}
+
+```
+
+```{r}
+#polarbear_nas %>% 
+ # filter(fasting=="yes") %>% 
+  #ggplot(x=count(bear_id), color=popn, fill=popn)+
+  #geom_histogram(alpha=.3)
+```
+
+
 9. (8 points) Where are the polar bears used in this study located? Make a static (not leaflet) distribution map that shows the locations of  bears by population. (hint: use `color=popn` in the `aes()` of `geom_point()`)
+
+```{r}
+#polarbear_nas %>% 
+ # select(lat, long) %>% 
+  #summary
+```
+```{r}
+#latitude <- c(62.46, 72.7)
+#longitude <- c(0172.2, -134.8)
+#boundbox <- make_bbox(longitude, latitude, f=.03)
+#map1 <- get_stadiamap(boundbox, maptype = "stamen_terrain", zoom=6)
+```
+
+
+```{r}
+#ggmap(map1)+
+ # geom_point(data=polarbear_nas, aes(longitude, latitude), size=1, #color="popn", alpha=.8)+
+ # labs(x="Longitude", y="Latitude", title="Polar Bears by Population")
+  
+```
+
+
+
 
 10. (10 points) Build a simple shiny app that shows the range of `un_creat_ratio` values for both populations. The user should be able to select the fill variable and choose between sex, mating, age_class, denning, and fasting. Please use the code chunk below so that your exam knits.
 ```{r, eval=F, echo=T}
+ui <- fluidPage(
+
+
+    
+    selectInput("x",
+              "Select Population",
+              choices=sort(unique(polarbear_nas$popn)),
+              selected ="SB"),
+    selectInput("y",
+              "Select Variable",
+              choices= c("sex", "mating", "age_class", "denning", "fasting"),
+              selected="sex")
+  
+    
+  )
+    
+    
+
+    plotOutput("plot", width="500px", height="400px")
+  
+  
+  
+    
+
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    polarbear_nas %>% 
+     filter(input$x==.data[["popn"]]) %>% 
+      ggplot(aes(x=.data(input$y)))+
+      geom_boxplot()
+
+})
+}
+
+shinyApp(ui, server)
 
 ```
 
