@@ -84,37 +84,48 @@ There are five main types of BLAST, each designed for a specific combination of 
 
 6. Examine your results:
    -**Max Score** - the highest alignment score between your query and a database sequence. (Higher is better.)
+   26372
    - **Total Score** — the sum of scores for all alignments between your query and a database sequence. (Higher is better.)
+   26854
    - **E-value** —  parameter that describes the number of hits one can “expect” to see by chance when searching a database of a particular size. (Lower is better)
+   0.0
    - **% Identity** — what percentage of aligned positions match exactly.
+   100
    - **Query Cover** — what percentage of your query sequence is covered by the alignment.
+   100
    - **Accession Number** — a unique identifier for the database entry that matched your query. You can click on this to learn more about the sequence.
+   CP029543.1
    
 7. Check the **Select All** box. Click on Download and select the **Alginment Descrptions CSV**. Download the results in CSV format. Using the command line move the file into your "data/blast_results" folder and rename the file to "genome01_blastn.csv".
 ```{}
-
+mv V0G6801W016-Alignment-Descriptions.csv data/blastresults
 ```
 
 
    
 Load the blast search results into R. 
 ```{r}
-
+blastresults <- read_csv("data/blastresults/genome01_blastn.csv")
 ```
 
 ```{r}
-
+glimpse(blastresults)
 ```
 
 What was the top 5 hits for your blast search ? 
 ```{r}
-
+blastresults %>% 
+  select(`Scientific Name`, `Max Score`) %>% 
+  arrange(desc(`Max Score`))
 ```
 
 
 Which hit had the highest e-value?**(include the description, taxid, e_value, and link to the accession number for this hit)**
 ```{r}
-
+blastresults %>% 
+  select(Description, `Scientific Name`, `E value`, Accession) %>% 
+  arrange(desc(`E value`))%>% 
+  head(1)
 ```
 
 ### View Fasta Files in R
@@ -124,9 +135,9 @@ Which hit had the highest e-value?**(include the description, taxid, e_value, an
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
-#BiocManager::install("Biostrings")
+BiocManager::install("Biostrings")
 ```
-
+a
 
 Load Library
 ```{r, quiet=TRUE, message=FALSE, warning=FALSE}
@@ -135,7 +146,8 @@ library(Biostrings)
 
 Lets take a look at a dna fasta file
 ```{r}
-
+query_sec <- readDNAStringSet("goi_01.txt")
+query_sec
 ```
 
 Lets look at the head of the fasta file
