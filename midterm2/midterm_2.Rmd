@@ -98,15 +98,14 @@ polarbear_nas %>%
 
 ```{r}
 polarbear_nas %>% 
-  count(sex, sort=T)
+  count(popn, sex, sort=T)
 ```
 
 
 ```{r}
-polarbear_nas %>% 
-  ggplot(aes(x=sex, fill=sex))+
-  geom_bar()+
-  labs(title="Numer of Bears sampled by Sex", x="Sex", y="Number Sampled")
+  ggplot(polarbear_nas, aes(x=popn, fill=sex))+
+  geom_bar(position="dodge")+
+  labs(title="Numer of Bears Sampled by Sex and Population", x="Population", y="Number Sampled")
   
 ```
 
@@ -114,15 +113,16 @@ polarbear_nas %>%
 
 ```{r}
 polarbear_nas <- polarbear_nas %>% 
-  separate(capture_date, into=c("year","month","day"),sep='-')
+  separate(capture_date, into=c("year","month","day"),sep='-', remove=F) %>% 
+  mutate(year= as.numeric(year))
 ```
 
 ```{r}
 polarbear_nas %>% 
-  mutate(numbersampled=n_distinct(bear_id)) %>% 
-  ggplot(aes(x=year, y=numbersampled))+ 
+  group_by(year, popn) %>% 
+  summarise(num_sampled=n_distinct(bear_id), .groups="drop") %>% 
+  ggplot(aes(x=year, y=num_sampled, color=popn))+ 
   geom_line()+
-  facet_wrap(~sex)+
   labs(title="Bears Sampled per Year (Male/Female", x="Year", y="Bears Sampled")
   
   
@@ -170,32 +170,36 @@ polarbear_nas<-polarbear_nas %>%
 ```
 
 ```{r}
-#polarbear_nas %>% 
- # filter(fasting=="yes") %>% 
-  #ggplot(x=count(bear_id), color=popn, fill=popn)+
-  #geom_histogram(alpha=.3)
+polarbear_nas %>% 
+  filter(fasting=="yes") %>% 
+  group_by(year, popn) %>% 
+  summarise(num_fasting= n_distinct(bear_id), .groups="drop") %>% 
+  ggplot(aes(x=year, y=num_fasting, color=popn))+
+  geom_line()+
+  labs(title="Number of Fasting Bears by Population", x="Year", y="Number Fasting")
 ```
 
 
 9. (8 points) Where are the polar bears used in this study located? Make a static (not leaflet) distribution map that shows the locations of  bears by population. (hint: use `color=popn` in the `aes()` of `geom_point()`)
 
 ```{r}
-#polarbear_nas %>% 
- # select(lat, long) %>% 
-  #summary
+polarbear_nas %>% 
+ select(lat, long) %>% 
+  summary
 ```
+
 ```{r}
-#latitude <- c(62.46, 72.7)
-#longitude <- c(0172.2, -134.8)
-#boundbox <- make_bbox(longitude, latitude, f=.03)
-#map1 <- get_stadiamap(boundbox, maptype = "stamen_terrain", zoom=6)
+lat <- c(62.46, 72.7)
+long <- c(-172.2, -134.8)
+boundbox <- make_bbox(long, lat, f=.03)
+map1 <- get_stadiamap(boundbox, maptype = "stamen_terrain", zoom=6)
 ```
 
 
 ```{r}
-#ggmap(map1)+
- # geom_point(data=polarbear_nas, aes(longitude, latitude), size=1, #color="popn", alpha=.8)+
- # labs(x="Longitude", y="Latitude", title="Polar Bears by Population")
+ggmap(map1)+
+  geom_point(data=polarbear_nas, aes(x=long, y=lat, size=1, color=popn, alpha=.6))+
+  labs(x="Longitude", y="Latitude", title="Polar Bears by Population")
   
 ```
 
@@ -204,42 +208,45 @@ polarbear_nas<-polarbear_nas %>%
 
 10. (10 points) Build a simple shiny app that shows the range of `un_creat_ratio` values for both populations. The user should be able to select the fill variable and choose between sex, mating, age_class, denning, and fasting. Please use the code chunk below so that your exam knits.
 ```{r, eval=F, echo=T}
+
 ui <- fluidPage(
-
-
-    
-    selectInput("x",
-              "Select Population",
-              choices=sort(unique(polarbear_nas$popn)),
-              selected ="SB"),
-    selectInput("y",
-              "Select Variable",
-              choices= c("sex", "mating", "age_class", "denning", "fasting"),
-              selected="sex")
   
+  titlePanel("Urea Nitrogen:Creatinine Ratio by Population"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      
+      selectInput("fill_var",
+                  "Choose fill variable:",
+                  choices = c("sex", "mating", "age_class", "denning", "fasting"),
+                  selected = "sex")
+      
+    ),
     
+    mainPanel(
+      plotOutput("histo_plot")
+    )
   )
-    
-    
+)
 
-    plotOutput("plot", width="500px", height="400px")
+server <- function(input, output) {
   
-  
-  
+  output$histo_plot <- renderPlot({
     
-
-
-server <- function(input, output, session) {
-  output$plot <- renderPlot({
-    polarbear_nas %>% 
-     filter(input$x==.data[["popn"]]) %>% 
-      ggplot(aes(x=.data(input$y)))+
-      geom_boxplot()
-
-})
+    ggplot(polarbear_nas,
+           aes(x = un_creat_ratio,
+               fill = .data[[input$fill_var]])) +
+      geom_histogram(alpha = 0.6, bins = 30) +
+      facet_wrap(~popn) +
+      labs(title = "Distribution of Urea Nitrogen:Creatinine Ratio by Population",
+           x = "Urea Nitrogen:Creatinine Ratio",
+           y = "Count",
+           fill = input$fill_var)
+    
+  })
 }
 
-shinyApp(ui, server)
+shinyApp(ui = ui, server = server)
 
 ```
 
